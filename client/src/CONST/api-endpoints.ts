@@ -1,0 +1,9 @@
+export const API_ENDPOINT = '/api/auth/';
+export const API_ENDPOINT_SIGN_UP = '/api/auth/register';
+export const API_ENDPOINT_LOGIN = '/api/auth/login';
+export const API_ENDPOINT_GET_FAVORITE = '/api/favorite';
+export const API_ENDPOINT_SET_TO_FAVORITE = '/api/favorite/generate';
+export const API_ENDPOINT_DELETE_FROM_FAVORITE = '/api/favorite/';
+export const API_ENDPOINT_GET_WATCH_LATER = '/api/watch-later';
+export const API_ENDPOINT_SET_TO_WATCH_LATER = '/api/watch-later/generate';
+export const API_ENDPOINT_DELETE_FROM_WATCH_LATER = '/api/watch-later/';

@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "outDir": "build/dist",
+    "module": "esnext",
+    "target": "es2018",
+    "lib": ["es6", "dom", "esnext.asynciterable"],
+    "strict": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noImplicitReturns": false,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "plugins": [{ "name": "tslint-language-service" }],
+    "types": ["node", "@emotion/react/types/css-prop"],
+    "typeRoots": ["src/types", "./node_modules/@types"]
+  },
+  "include": ["./src", "./typings", "./src/**/*.tsx", "./src/**/*.ts", "src/**/*", "./styles", "routes"],
+
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack.config.js",
+    "src/setupTests.ts",
+    "config",
+    "typedoc.js",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ],
+
+  "types": ["./src/typings"]
+}

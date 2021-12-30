@@ -1,0 +1,33 @@
+{
+  "favorite": {
+    "title": "favorite",
+    "icon": "icon-Favorite",
+    "id": "isFavorite"
+  },
+ "watch_later": {
+    "title": "watch_later",
+    "icon": "icon-Watch-Later",
+    "id": "watchLater",
+    "config": {
+      "title": "Add movie to watch later",
+      "actions": [
+        {
+          "id": "withFamily",
+          "title": "With Family"
+        },
+        {
+          "id": "withFriends",
+          "title": "With Friends"
+        },
+        {
+          "id": "withTrueLove",
+          "title": "With True Love"
+        },
+        {
+          "id": "Alone",
+          "title": "Alone"
+        }
+      ]
+    }
+  }
+}

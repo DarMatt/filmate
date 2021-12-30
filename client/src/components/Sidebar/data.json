@@ -1,0 +1,37 @@
+[
+  {
+  "title": "main_page",
+  "icon": "icon-Main-Page",
+  "link": "main-page"
+},
+{
+  "title": "favorite",
+  "icon": "icon-Favorite",
+  "link": "favorite"
+},
+{
+  "title": "watch_later",
+  "icon": "icon-Watch-Later",
+  "link": "watch-later"
+},
+{
+  "title": "coming_soon",
+  "icon": "icon-Coming-Soon",
+  "link": "coming-soon"
+},
+{
+  "title": "friends",
+  "icon": "icon-Friends",
+  "link": "friends"
+},
+{
+  "title": "settings",
+  "icon": "icon-Settings",
+  "link": "settings"
+},
+{
+  "title": "log_out",
+  "icon": "icon-Log-Out",
+  "link": "log-out"
+}
+]

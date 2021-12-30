@@ -1,0 +1,6 @@
+{
+  "port": 3000,
+  "jwtSecret": "DarMatt",
+  "mongoUri": "mongodb+srv://daria:1234@darmatt.qmccc.mongodb.net/app?retryWrites=true&w=majority",
+  "baseUrl": "http://localhost:3000"
+}
