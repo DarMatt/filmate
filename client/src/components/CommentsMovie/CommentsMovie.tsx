@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { S } from './styles';
 import { getImgUrl } from '../../api/URLs';
 import { UserReviews } from '../UserReviews/UserReviews';
+import { useTranslation } from 'react-i18next';
 
 const ratingNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const commentData = {
@@ -18,6 +19,7 @@ type commentDataType = {
 
 export const CommentsMovie: React.FC<any> = ({ movieDetails }) => {
   const [comment, setComment] = useState<commentDataType>(commentData);
+  const { t } = useTranslation(['common']);
   const createCommet = (event: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = event.target as HTMLInputElement;
     setComment((prevState) => ({
@@ -29,12 +31,12 @@ export const CommentsMovie: React.FC<any> = ({ movieDetails }) => {
   return (
     <S.CommentsWrapper>
       <S.CommentsForm>
-        <S.CommentsTitle>Add an item</S.CommentsTitle>
+        <S.CommentsTitle>{t('add_item')}</S.CommentsTitle>
         <S.CommentsImg src={getImgUrl(`original${movieDetails.backdrop_path}`)} alt="Photo movie" />
         <S.CommentsNameMovie>
           {`${movieDetails.title} (${movieDetails.release_date.slice(0, 4)})`}
         </S.CommentsNameMovie>
-        <S.AddRating>Your rating</S.AddRating>
+        <S.AddRating>{t('rating')}</S.AddRating>
         <S.NumberRating>
           {ratingNumber.map((num) => (
             <input
@@ -48,11 +50,11 @@ export const CommentsMovie: React.FC<any> = ({ movieDetails }) => {
             />
           ))}
         </S.NumberRating>
-        <S.ReviewTitle>Your review</S.ReviewTitle>
+        <S.ReviewTitle>{t('review')}</S.ReviewTitle>
         <S.ReviewTextarea name="review" value={comment.review} onChange={createCommet} />
 
         <S.SpoilersInner>
-          <div>Does this review contain spoilers?</div>
+          <div>{t('spoilers')}</div>
           <div>
             <label htmlFor="">
               <input
@@ -63,15 +65,15 @@ export const CommentsMovie: React.FC<any> = ({ movieDetails }) => {
                 type="radio"
                 name="spoilers"
               />
-              Yes
+              {t('yes')}
             </label>
             <label htmlFor="">
               <input value="No" onChange={createCommet} type="radio" name="spoilers" />
-              No
+              {t('no')}
             </label>
           </div>
         </S.SpoilersInner>
-        <S.ButtonSubmitComment>Submit</S.ButtonSubmitComment>
+        <S.ButtonSubmitComment>{t('submit')}</S.ButtonSubmitComment>
       </S.CommentsForm>
       <UserReviews />
     </S.CommentsWrapper>

@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import boxArrow from '../../assets/images/box-arrow-up-right.svg';
 import { UiSize } from '../../enums/UiSize';
 import { STORAGE_THEME } from '../../CONST/key-localStorage';
@@ -293,7 +292,7 @@ export const RemoveFromMenuInner = styled.div`
   gap: 10px;
   position: absolute;
   cursor: pointer;
-  top: -1px;
+  top: 0;
   right: 10px;
   z-index: 10;
 `;

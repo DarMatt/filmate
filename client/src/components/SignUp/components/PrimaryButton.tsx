@@ -6,7 +6,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     margin: theme.spacing(3, 0, 2),
     background: '#2E2E2E',
-    // color: '#DADADA',
     borderRadius: '10px',
     height: '60px',
     fontSize: '18px',

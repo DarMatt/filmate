@@ -1,5 +1,5 @@
 import { IMovies } from '../interfaces/movieList';
-import { movieAsyncActions, setMovies } from '../redux-slices/movie-slice';
+import { setMovies } from '../redux-slices/movie-slice';
 import { ErrorAlertAndRedirect, Toast } from '../components/Swal';
 import { HTTP_FULFILLED_STATUS, HTTP_REJECTED_STATUS } from '../CONST/http-request-status';
 import { AppDispatch } from '../store/store';
@@ -83,9 +83,6 @@ export const removeFromMenuReqCheck = async ({
   movie,
   key,
 }: IAddToMenu) => {
-  // const {
-  //   meta: { requestStatus },
-  // } = await dispatch(movieAsyncActions.removeMovieFromFavorite(film.id));
   if (requestStatus === HTTP_FULFILLED_STATUS) {
     Toast.fire({
       icon: 'success',
@@ -130,7 +127,6 @@ export const addToMenuReqCheck = async ({
       title: 'You are not logged in!',
       text: 'Please login or register',
       onButtonText: 'Cancel',
-      // onOkAction: () => history.push('/'),
     });
   }
 };
@@ -150,4 +146,11 @@ export const getGenre = (film: IMovieCard = initialMovieState) => {
     }
   }
   return genres;
+};
+
+export const matchExact = (param: string, obj: any) => {
+  if (obj ? param === obj[0] : false) {
+    console.log(param, obj[0]);
+  }
+  return obj ? param === obj[0] : false;
 };

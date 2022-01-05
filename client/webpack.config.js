@@ -29,7 +29,7 @@ module.exports = {
     filename: '[name].[contenthash].bundle.js',
     assetModuleFilename: 'assets/[name][ext]',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: isProd ? '/film-app/' : '/',
+    publicPath: '/',
     clean: true,
   },
   resolve: {

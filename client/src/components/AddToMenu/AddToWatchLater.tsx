@@ -25,10 +25,6 @@ export const AddToWatchLater: React.FC<IWatchLaterProps> = ({
   const [modalWidth, setModalWidth] = useState(0);
   const dispatch = useAppDispatch();
   const movies = useAppSelector(getMovieSelector);
-  console.log('modalWidth', modalWidth);
-
-  // NEED MORE EDIT
-  ///////////////////////////////
 
   const onBtnClick = async (key: string) => {
     const {
@@ -59,7 +55,7 @@ export const AddToWatchLater: React.FC<IWatchLaterProps> = ({
         size={size}
         ref={innerBorderRef}
         position={position}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e: React.MouseEvent<HTMLElement>) => e.stopPropagation()}
       >
         <S.WatchTitle size={size}>{title}</S.WatchTitle>
         {actions.map((btn) => (

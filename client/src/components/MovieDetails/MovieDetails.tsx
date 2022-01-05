@@ -1,10 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { MovieImages } from '../MovieImages/MovieImages';
-// import Button from '@material-ui/core/Button';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import StarIcon from '@material-ui/icons/Star';
-import { addMovie, deleteMovie, getMovie, getMovieDetails } from '../../api/api';
+import { getMovieDetails } from '../../api/api';
 import {
   MainMovieContainerStyled,
   MainMoviePosterStyled,
@@ -24,20 +21,12 @@ import {
 import { IMovieDetails } from '../../interfaces/movieList';
 import { getImgUrl } from '../../api/URLs';
 import { useHttp } from '../../hooks/http.hook';
-import { ErrorAlertAndRedirect, Toast } from '../Swal';
-import { useAuth } from '../../context/AuthContext';
 import { Loader } from '../Loader/Loader';
-import { AddToMenu } from '../AddToMenu/AddToMenu';
 import { Pagination } from '../Pagination/Pagination';
 import { Suggest } from '../Suggest/Suggest';
 import { CommentsMovie } from '../CommentsMovie/CommentsMovie';
-import { UiSize } from '../../enums/UiSize';
 import useWindowDimensions from '../../hooks/useVieWport';
-import { IPositionProps, positionInitialState } from '../../hooks/useCursorPosition';
-import { getPosition } from '../../hooks/useCursorPosition';
-import { ROUTE_LOGIN_PAGE } from '../../CONST/list-local-routes/routes';
-import { initialWatchLaterVal, isSomeKeyTrue } from '../../utils/helpers';
-import { RemoveFromMenu } from '../RemoveFromMenu/RemoveFromMenu';
+import { initialWatchLaterVal } from '../../utils/helpers';
 
 export const initialMovieState = {
   isFavorite: false,
@@ -65,20 +54,10 @@ export const initialMovieState = {
   genres: [],
 };
 
-interface IFavoriteId {
-  favoriteId?: number | string;
-}
-
-interface IFavoriteId {
-  id: number;
-}
-
 const MovieDetailsPage: React.FC = () => {
   const { id = '' } = useParams<{ id?: string | undefined }>();
-  const history = useHistory();
   const { width } = useWindowDimensions();
   const { request, IsLoading } = useHttp(getMovieDetails, id);
-  const { token } = useAuth();
   const [movieDetails, setMovieDetails] = React.useState<IMovieDetails>(initialMovieState);
   const [pageIndex, setPageIndex] = useState(0);
   const display = 'flex-end';
@@ -96,18 +75,14 @@ const MovieDetailsPage: React.FC = () => {
   const onPageIndex = (index: number) => {
     setPageIndex(index);
   };
-  console.log('movieDetails.videos.results', movieDetails.videos.results);
+
   return (
     <>
       <MainMovieContainerStyled
-        // onClick={(event: any) => {
-        //   searchElement(event);
-        // }}
         backgroundImage={getImgUrl(`original${movieDetails.backdrop_path}`)}
       >
         {IsLoading && <Loader />}
         <MainMovieInnerStyled className="movie-details">
-          {/* {IsLoading && <Loader />} */}
           <MainMoviePosterStyled src={getImgUrl(`w300${movieDetails.poster_path}`)} />
           <MainMovieMetaStyled>
             <div>

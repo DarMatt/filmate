@@ -24,6 +24,12 @@ export const InnerSignInStyled = styled.div`
   background-color: ${({ theme }) => theme.backgroundColors.modalColor};
   z-index: 25;
 
+  @media (max-width: 500px) {
+    left: calc(50% - 180px);
+    width: 360px;
+    height: 600px;
+  }
+
   > form {
     display: flex;
     flex-direction: column;
@@ -51,6 +57,10 @@ export const TitleStyled = styled.div`
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
+
+  @media (max-width: 500px) {
+    margin-top: 60px;
+  }
 `;
 
 export const CloseBtnStyled = styled.button`
@@ -100,6 +110,10 @@ export const EmailInputStyled = styled.input`
   border-radius: 8px;
   outline: none;
 
+  @media (max-width: 500px) {
+    width: 300px;
+  }
+
   &::placeholder {
     color: ${({ theme }) => theme.backgroundColors.modalColorPlaceholder};
     font-style: normal;
@@ -123,6 +137,10 @@ export const SubmitBtnStyled = styled.button`
   color: #fff;
   background: #2e2e2e;
   border-radius: 10px;
+
+  @media (max-width: 500px) {
+    width: 300px;
+  }
 `;
 
 export const SubTitleStyled = styled.div`
@@ -162,6 +180,10 @@ export const LinkClickStyled = styled(Link)`
   color: ${({ theme }) => theme.textColors.popupColor};
   border-radius: 10px;
   cursor: pointer;
+
+  @media (max-width: 500px) {
+    width: 300px;
+  }
 `;
 
 export const InputValidationStyledStyled = styled.div`

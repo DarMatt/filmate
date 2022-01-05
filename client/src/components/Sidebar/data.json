@@ -12,7 +12,7 @@
 {
   "title": "watch_later",
   "icon": "icon-Watch-Later",
-  "link": "watch-later"
+  "link": "watch-later/with-friends"
 },
 {
   "title": "coming_soon",
@@ -22,7 +22,7 @@
 {
   "title": "friends",
   "icon": "icon-Friends",
-  "link": "friends"
+  "link": "my-friends"
 },
 {
   "title": "settings",

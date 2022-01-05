@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import {ISweetAlertProps} from '../interfaces/SweetAlert';
+import { ISweetAlertProps } from '../interfaces/SweetAlert';
 
 export const Toast = Swal.mixin({
   toast: true,
@@ -13,7 +13,7 @@ export const Toast = Swal.mixin({
   },
 });
 
-export const ErrorAlert = ({title, text}: ISweetAlertProps) => {
+export const ErrorAlert = ({ title, text }: ISweetAlertProps) => {
   Swal.fire({
     icon: 'error',
     title,

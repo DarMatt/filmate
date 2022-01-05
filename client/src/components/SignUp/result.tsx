@@ -14,29 +14,19 @@ import {
   Typography,
 } from '@material-ui/core';
 import React from 'react';
-import { useData } from '../../context/DataContext';
 import { useHistory, useLocation } from 'react-router';
 import Swal from 'sweetalert2';
 import { MainContainer } from './components/MainContainer';
-import { Link } from 'react-router-dom';
 import { InsertDriveFile } from '@material-ui/icons';
 import { PrimaryButton } from './components/PrimaryButton';
-import { Header } from './components/Header';
 import { useMessage } from '../../hooks/message.hook';
-import { apiUrl } from '../../api/URLs';
-import { useAuth } from '../../context/AuthContext';
-import { post } from '../../services/fetch';
 import Modal, { IProps } from '../modal';
 import { LinkStyledStyled, StepWrapperStyle } from './styles';
 import { getUserDataSelector } from '../../selectors/selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { authAsyncActions } from '../../redux-slices/auth-slice';
-import {
-  HTTP_FULFILLED_STATUS,
-  HTTP_REJECTED_STATUS,
-  HTTP_PENDING_STATUS,
-} from '../../CONST/http-request-status';
-import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { HTTP_FULFILLED_STATUS, HTTP_REJECTED_STATUS } from '../../CONST/http-request-status';
 import { ROUTE_LOGIN_PAGE, ROUTE_STEP_1_PAGE } from '../../CONST/list-local-routes/routes';
 
 const useStyles = makeStyles({
@@ -55,29 +45,17 @@ const Result: React.FC<IProps> = ({ onClick }) => {
   const match = useLocation();
   const styles = useStyles();
   const data = useAppSelector(getUserDataSelector);
-  const auth = useAuth();
+  const { t } = useTranslation(['common']);
   const entries = Object.entries(data).filter((entry) => entry[0] !== 'files');
   const { files, email, password } = data;
   const dispatch = useAppDispatch();
   console.log('registerData', data);
   const onSubmit = async () => {
-    // const info = await post(`${apiUrl}register`, { ...data });
-    // const info2 = await post(`${apiUrl}login`, { email, password });
-    // auth.login(info2.token, info2.userId);
-    // message(info.message);
     const info = await dispatch(authAsyncActions.signUpAction({ ...data }));
-    console.log(info);
+
     const {
       meta: { requestStatus },
     } = info;
-    // switch (requestStatus) {
-    //   case HTTP_PENDING_STATUS:
-    //   case HTTP_FULFILLED_STATUS:
-    //     message(info.payload.message);
-    //     Swal.fire('Great job!', 'You become a member of FilmMatt');
-    //     history.push('/');
-    //     break;
-    // }
     if (requestStatus === HTTP_FULFILLED_STATUS) {
       message(info.payload.message);
       Swal.fire('Great job!', 'You become a member of FilmMatt');
@@ -94,17 +72,17 @@ const Result: React.FC<IProps> = ({ onClick }) => {
       <StepWrapperStyle>
         <MainContainer maxWidth="md" style={{ width: '620px' }}>
           <Typography component="h2" variant="h5" style={{ paddingBottom: '20px' }}>
-            Please check your information
+            {t('check_info')}
           </Typography>
           <Typography component="h3" variant="h6" style={{ paddingBottom: '30px' }}>
-            If you made a mistake, you can go back and correct it
+            {t('if_make_mistake')}
           </Typography>
           <TableContainer className={styles.root} component={Paper}>
             <Table className={styles.table}>
               <TableHead>
                 <TableRow>
-                  <TableCell>Field</TableCell>
-                  <TableCell align="right">Value</TableCell>
+                  <TableCell>{t('field')}</TableCell>
+                  <TableCell align="right">{t('value')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -120,7 +98,7 @@ const Result: React.FC<IProps> = ({ onClick }) => {
           {files && (
             <>
               <Typography component="h2" variant="h5">
-                Files 🗃
+                {t('files')} 🗃
               </Typography>
               <List>
                 {files.map((f: any, index: number) => (
@@ -134,9 +112,9 @@ const Result: React.FC<IProps> = ({ onClick }) => {
               </List>
             </>
           )}
-          <PrimaryButton onClick={onSubmit}>Submit</PrimaryButton>
+          <PrimaryButton onClick={onSubmit}>{t('submit')}</PrimaryButton>
           <LinkStyledStyled to={{ pathname: match.pathname, search: ROUTE_STEP_1_PAGE }}>
-            Start over
+            {t('start_over')}
           </LinkStyledStyled>
         </MainContainer>
       </StepWrapperStyle>

@@ -7,12 +7,12 @@ import { DEFAULT_LOCALE, EN, RU } from '../../CONST/locales';
 import { LOCALE } from '../../CONST/key-localStorage';
 import { getSideBarStatusSelector, getThemeSelector } from '../../selectors/selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setTheme } from '../../redux-slices/manager-ui-slice';
+import { setSideBarStatus, setTheme } from '../../redux-slices/manager-ui-slice';
 import { signOut } from '../../redux-slices/auth-slice';
+import { CrossStyle, HamburgerStyle, MenuToggleStyle } from '../Header/styles';
+import useOnOutsideClick from '../../hooks/useOnOutsideClick';
 
 export const Sidebar: React.FC<any> = () => {
-  const [switchTwo, setSwitchTwo] = useState<boolean>(true);
-  const [link, setLink] = useState<string>('');
   const pathname = window.location.pathname;
   const match = useLocation();
   const history = useHistory();
@@ -22,25 +22,49 @@ export const Sidebar: React.FC<any> = () => {
   const { t } = useTranslation(['common']);
   const { i18n } = useTranslation('common');
   const openMenu = useAppSelector(getSideBarStatusSelector);
+  const { innerBorderRef } = useOnOutsideClick(() => dispatch(setSideBarStatus(false)));
+
   const toSwitchLang = () => {
     i18n.changeLanguage(lang === EN ? RU : EN);
   };
+
   const toSwitchTheme = () => {
     dispatch(setTheme(!storageTheme));
   };
+
   const applyLink = (arg: string) => {
-    setLink(arg);
-    console.log('arg', arg);
     if (arg === 'log-out') {
       dispatch(signOut());
       history.push('/');
     }
   };
-  console.log('LANGUAGE', lang);
+
+  const findeIndex = (url: string | string[]) => {
+    return url.lastIndexOf('/') === -1 ? url : url.slice(0, url.lastIndexOf('/'));
+  };
+
   return (
-    <S.SidebarWrapper hideMenu={openMenu ? '0' : '-100%'}>
+    <S.SidebarWrapper ref={innerBorderRef} hideMenu={openMenu ? '0' : '-100%'}>
       <div>
         <S.LogoStyled onClick={() => history.push(match.pathname)}></S.LogoStyled>
+        <MenuToggleStyle
+          onClick={() => {
+            dispatch(setSideBarStatus(!openMenu));
+          }}
+          burger={openMenu ? '170px' : '0'}
+          burgerSmall={openMenu ? '148px' : '0'}
+          id="menu-toggle"
+        >
+          <HamburgerStyle line={openMenu}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </HamburgerStyle>
+          <CrossStyle arrow={openMenu}>
+            <span></span>
+            <span></span>
+          </CrossStyle>
+        </MenuToggleStyle>
         <S.MenuList>
           {data.map((el) => (
             <S.MenuItem
@@ -49,10 +73,14 @@ export const Sidebar: React.FC<any> = () => {
               }}
               key={el.link}
             >
-              <S.MenuLink activediv={pathname.match(`${el.link}`)} to={`/${el.link}`}>
+              <S.MenuLink
+                onClick={() => dispatch(setSideBarStatus(false))}
+                activediv={pathname.match(`${findeIndex(el.link)}`)}
+                to={`/${el.link}`}
+              >
                 <div></div>
                 <S.MenuIcon
-                  activediv={pathname.match(`${el.link}`)}
+                  activediv={pathname.match(`${findeIndex(el.link)}`)}
                   className={el.icon}
                 ></S.MenuIcon>
                 <S.MenuTitle>{t(el.title)}</S.MenuTitle>

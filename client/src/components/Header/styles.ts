@@ -175,6 +175,7 @@ export const LogoSearchInnerStyled = styled.div`
   @media (max-width: 1024px) {
     gap: 10px;
     width: 100%;
+    justify-content: flex-end;
   }
 `;
 
@@ -201,10 +202,12 @@ export const LogoStyled = styled.img.attrs<string>({
 `;
 
 export const MenuToggleStyle = styled.div`
+  position: absolute;
+  top: -77px;
+  right: -45px;
   display: none;
   width: 35px;
   height: 35px;
-  position: relative;
   cursor: pointer;
   border-radius: 15px;
   transition: margin-left 0.6s;

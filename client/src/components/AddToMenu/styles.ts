@@ -19,31 +19,24 @@ const szCompact = UiSize.COMPACT;
 const styleTemplates: any = {
   [szRegular]: {
     wrapper: css`
-      /* left: 320px;
-      bottom: 110px; */
       @media (max-width: 1500px) {
         padding: 30px 30px;
         text-align: center;
-        /* left: 290px; */
       }
       @media (max-width: 1250px) {
         padding: 25px 25px;
         text-align: center;
-        /* left: 290px; */
       }
       @media (max-width: 820px) {
         padding: 15px 15px;
       } ;
     `,
     inner: css`
-      /* left: 320px;
-      bottom: 50px; */
       @media (max-width: 1500px) {
         width: 330px;
         height: 400px;
       }
       @media (max-width: 1250px) {
-        /* left: 310px; */
         width: 305px;
         height: 340px;
       }
@@ -64,7 +57,7 @@ const styleTemplates: any = {
       }
       @media (max-width: 1250px) {
         font-size: 25px;
-        line-height: 20px;
+        line-height: 25px;
       }
       @media (max-width: 820px) {
         font-size: 20px;
@@ -188,8 +181,6 @@ const styleTemplates: any = {
       }
     `,
     inner: css`
-      /* right: 33px;
-      bottom: 36px; */
       border-radius: 10px;
       width: 224px;
       height: 360px;
@@ -204,17 +195,17 @@ const styleTemplates: any = {
     `,
     addToTitle: css`
       font-size: 23px;
-      line-height: 17px;
+      line-height: 23px;
       width: 100%;
       display: block;
       text-align: center;
       @media (max-width: 1200px) {
         font-size: 18px;
-        line-height: 12px;
+        line-height: 18px;
       }
       @media (max-width: 580px) {
         font-size: 16px;
-        line-height: 10px;
+        line-height: 16px;
       }
     `,
     addMenuBtn: css`
@@ -294,10 +285,6 @@ const styleTemplates: any = {
     `,
   },
 };
-
-// S.AddedSpan = styled.span`
-//   align-self: flex-end;
-// `;
 
 S.AddMenuInner = styled.div`
   align-self: flex-end;

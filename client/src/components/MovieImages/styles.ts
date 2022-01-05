@@ -10,8 +10,6 @@ S.ImagesWrapper = styled.section`
   padding: 0 70px;
 
   > div {
-    /* display: flex;
-    justify-content: space-between; */
     display: grid;
     grid-template-columns: repeat(5, auto);
     gap: 31px;

@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
-import { ISignUp } from '../interfaces/signUp';
+import { ISignUp } from '../../interfaces/signUp';
 
 interface IDataContext {
   data: ISignUp;

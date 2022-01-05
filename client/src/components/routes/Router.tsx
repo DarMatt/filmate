@@ -15,11 +15,11 @@ import SignIn from '../SignIn/SignIn';
 
 export const Router = () => {
   const isAuth = useAppSelector(getAuthStatusSelector);
+
   return (
     <>
       <Switch>
         {PUBLIC_ROUTER.map((router, index) => {
-          console.log('router', router);
           if (isAuth && router.hideAfterLogin) {
             return null;
           } else {
@@ -48,7 +48,6 @@ export const Router = () => {
         </Route>
       </Switch>
       {/* {MODAL_ROUTER.map((router, key) => {
-        console.log('isAuth, router.hideAfterLogin, router', isAuth, router.hideAfterLogin, router);
         if (isAuth && router.hideAfterLogin) {
           return null;
         } else {

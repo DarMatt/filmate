@@ -5,10 +5,10 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import Typography from '@material-ui/core/Typography';
 import { MainContainer } from './components/MainContainer';
+import { useTranslation } from 'react-i18next';
 import { Form } from './components/Form';
 import { Input } from './components/Input';
 import { PrimaryButton } from './components/PrimaryButton';
-import { useData } from '../../context/DataContext';
 import { IStep1 } from '../../interfaces/signUp';
 import Modal, { IProps } from '../modal';
 import {
@@ -39,6 +39,7 @@ const Step1: React.FC<IProps> = ({ onClick }) => {
   const history = useHistory();
   const data = useAppSelector(getUserDataSelector);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation(['common']);
   const {
     register,
     handleSubmit,
@@ -60,7 +61,6 @@ const Step1: React.FC<IProps> = ({ onClick }) => {
       },
       { keepDefaultValues: true }
     );
-    // setValues(values);
   };
 
   return params.get('step-one') ? (
@@ -74,7 +74,7 @@ const Step1: React.FC<IProps> = ({ onClick }) => {
             className="icon-add-plus"
           ></PlusCloseStyle>
           <Typography component="h3" variant="h6">
-            Become a member of FILMATT
+            {t('become_a_member')}
           </Typography>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Input
@@ -103,10 +103,10 @@ const Step1: React.FC<IProps> = ({ onClick }) => {
                 <StepEndStyle>4</StepEndStyle>
               </div>
               <button type="submit">
-                Next step <span className="icon-next-right-arrow"></span>
+                {t('next_step')} <span className="icon-next-right-arrow"></span>
               </button>
             </StepsBoxStyle>
-            <PrimaryButton disabled={true}>Submit</PrimaryButton>
+            <PrimaryButton disabled={true}>{t('submit')}</PrimaryButton>
           </Form>
         </MainContainer>
       </StepWrapperStyle>

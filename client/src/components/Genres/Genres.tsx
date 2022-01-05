@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useRouteMatch } from 'react-router';
-import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppDispatch } from '../../hooks/redux';
 import { movieAsyncActions } from '../../redux-slices/movie-slice';
-import { getUserDataSelector } from '../../selectors/selectors';
 import allGenres from './allGenres';
-import { GenerWrapperStyled, TitleStyled, ListOfGenresStyled, GenerItemStyled } from './styles';
+import { GenerWrapperStyled, ListOfGenresStyled } from './styles';
 
 export interface MatchParams {
   genre: string;
@@ -17,7 +15,6 @@ export const Genres: React.FC = () => {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { params } = useRouteMatch<MatchParams>();
-  const userData = useAppSelector(getUserDataSelector);
   const { t } = useTranslation(['common']);
   const url = useRouteMatch();
   console.log('url', url);
@@ -28,8 +25,6 @@ export const Genres: React.FC = () => {
     setValueOption(searchGenre?.gener! || 'Popular');
   }, [params.genre]);
 
-  console.log(valueOption);
-
   const onGenre = (e: any) => {
     const { value } = e.target;
     setValueOption(value);
@@ -38,15 +33,15 @@ export const Genres: React.FC = () => {
     const isPopular = id === 'popular';
     !isPopular ? history.push(`/main-page/${id}`) : history.push('/main-page');
     isPopular
-      ? dispatch(movieAsyncActions.setMoviesAction(null))
+      ? dispatch(movieAsyncActions.setMoviesAction())
       : dispatch(movieAsyncActions.setMoviesGenre(id));
   };
 
   return (
     <GenerWrapperStyled>
-      <TitleStyled>
+      {/* <TitleStyled>
         {t('sort_by')}:<span>{t(valueOption)}</span>
-      </TitleStyled>
+      </TitleStyled> */}
       <label htmlFor="">
         {t('genres')}:
         <ListOfGenresStyled value={valueOption} onChange={onGenre}>

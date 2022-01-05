@@ -5,16 +5,17 @@ import { IMovieImages } from '../../interfaces/movieImages';
 import { Pagination } from '../Pagination/Pagination';
 import { S } from './styles';
 import useWindowDimensions from '../../hooks/useVieWport';
+import { CENTER } from '../../CONST/display';
+import { useTranslation } from 'react-i18next';
 
 export const MovieImages: React.FC<{ id: string }> = (id) => {
   const [images, setImages] = useState<string[]>([]);
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState<number>(5);
   const { width } = useWindowDimensions();
-  const display = 'center';
-  console.log(pageSize);
+  const { t } = useTranslation(['common']);
+
   useEffect(() => {
-    console.log(width);
     width < 767
       ? width < 650
         ? width <= 510
@@ -37,6 +38,7 @@ export const MovieImages: React.FC<{ id: string }> = (id) => {
   const onPageIndex = (index: number) => {
     setPageIndex(index);
   };
+
   return (
     <S.ImagesWrapper>
       <div>
@@ -44,9 +46,9 @@ export const MovieImages: React.FC<{ id: string }> = (id) => {
           <S.Images src={el} key={el} />
         ))}
       </div>
-      <S.ImagesTitle>Photos</S.ImagesTitle>
+      <S.ImagesTitle>{t('photos')}</S.ImagesTitle>
       <Pagination
-        display={display}
+        display={CENTER}
         index={pageIndex}
         total={images.length}
         onPageIndex={onPageIndex}

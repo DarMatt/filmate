@@ -1,26 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router';
-import { getUser } from '../../api/api';
-import { useAuth } from '../../context/AuthContext';
 import profileImg from '../../assets/images/profile.png';
 import { signOut } from '../../redux-slices/auth-slice';
 import { S } from './styles';
 import useOnOutsideClick from '../../hooks/useOnOutsideClick';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getTokenSelector, getUserDataSelector } from '../../selectors/selectors';
-import { movieAsyncActions } from '../../redux-slices/movie-slice';
+import { getUserDataSelector } from '../../selectors/selectors';
 import { ERoutes } from '../../CONST/list-local-routes/routes';
 import { useTranslation } from 'react-i18next';
 
-interface IUserInfo {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  hasPhone: boolean;
-  files: any[];
-}
 interface ISettingsProps {
   setOpenModal: () => void;
 }

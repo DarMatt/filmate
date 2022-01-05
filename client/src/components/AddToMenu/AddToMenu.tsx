@@ -8,7 +8,6 @@ import { IMovieCard } from '../../interfaces/movieCard';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getMovieSelector } from '../../selectors/selectors';
 import { useHistory } from 'react-router';
-// import useWindowDimensions from '../../hooks/useVieWport';
 import { AddToFavorite } from './AddToFavorite';
 import { isSomeKeyTrue, ToastError } from '../../utils/helpers';
 import done from '../../assets/images/done.svg';
@@ -30,7 +29,6 @@ export const AddToMenu: React.FC<IProps> = React.memo(({ movie, size, position }
   const [cursorPosition, setCursorPosition] = useState<number>(0);
   const btnWL = data.watch_later;
   const isWL = movie?.isWatchLater && isSomeKeyTrue(movie?.isWatchLater);
-  // const { width } = useWindowDimensions();
   const modalRef = useRef<HTMLElement>();
   const btnRef = useRef<HTMLElement>();
   const isAdded = isWL && movie.isFavorite;
@@ -79,7 +77,6 @@ export const AddToMenu: React.FC<IProps> = React.memo(({ movie, size, position }
             size={size}
             onClick={(e: any) => {
               setIsOpenAddTo(!isOpenAddTo);
-              // setOpenWatchLater(false);
             }}
           >
             {isOpenAddTo && (

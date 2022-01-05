@@ -13,9 +13,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
     .fill(0)
     .map((num: number, i: number) => Math.max(index - 1, 1) + i + Math.min(total - index - 3, 0))
     .filter((i) => i > 0 && i <= total - pageSize);
-  console.log('total', total);
-  console.log('pageSize', pageSize);
-  console.log('index', index);
+
   return (
     <>
       {!(total <= pageSize) && (

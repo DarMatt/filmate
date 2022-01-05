@@ -1,6 +1,5 @@
-import React, { MutableRefObject, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
 import { Settings } from '../Settings/Settings';
 import { useHistory } from 'react-router-dom';
 import {
@@ -8,23 +7,18 @@ import {
   FlexForHeaderStyled,
   LogoSearchInnerStyled,
   LogoStyled,
-  MenuToggleStyle,
-  HamburgerStyle,
-  CrossStyle,
   SearchStyled,
   SearchBtnStyle,
   SignInBtnStyled,
   UserImgStyled,
-  LinkStyled,
   ChatIconStyle,
 } from './styles';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getAuthStatusSelector, getSideBarStatusSelector } from '../../selectors/selectors';
-import { ERoutes, ROUTE_LOGIN_PAGE } from '../../CONST/list-local-routes/routes';
+import { getAuthStatusSelector } from '../../selectors/selectors';
+import { ROUTE_LOGIN_PAGE } from '../../CONST/list-local-routes/routes';
 import { useTranslation } from 'react-i18next';
 import { movieAsyncActions } from '../../redux-slices/movie-slice';
 import { useDebounce } from '../../hooks/useDebounced';
-import { setSideBarStatus } from '../../redux-slices/manager-ui-slice';
 
 interface IHeaderProps {
   openSearch: boolean;
@@ -36,18 +30,13 @@ export const Header: React.FC<IHeaderProps> = ({ openSearch, setOpenSearch }) =>
   const match = useLocation();
   const [value, setValue] = useState('');
   const dispatch = useAppDispatch();
-  // const { isAuthenticated } = useAuth();
   const isAuthenticated = useAppSelector(getAuthStatusSelector);
-  const openMenu = useAppSelector(getSideBarStatusSelector);
   const history = useHistory();
   const setOpenModal = () => setIsOpen(!isOpen);
   const { t } = useTranslation(['common']);
-  console.log('MODAL-OPEN', isOpen);
-  console.log('isAuthenticated', isAuthenticated);
   const debouncedSearchTerm = useDebounce(value, 1300);
 
   useEffect(() => {
-    console.log('IM ISIDE debouncedSearchTerm');
     dispatch(movieAsyncActions.setSearchMovies(value));
   }, [debouncedSearchTerm]);
 
@@ -57,24 +46,6 @@ export const Header: React.FC<IHeaderProps> = ({ openSearch, setOpenSearch }) =>
         <FlexForHeaderStyled>
           <LogoSearchInnerStyled>
             <LogoStyled onClick={() => history.push(match.pathname)}></LogoStyled>
-            <MenuToggleStyle
-              onClick={() => {
-                dispatch(setSideBarStatus(!openMenu));
-              }}
-              burger={openMenu ? '170px' : '0'}
-              burgerSmall={openMenu ? '148px' : '0'}
-              id="menu-toggle"
-            >
-              <HamburgerStyle line={openMenu}>
-                <span></span>
-                <span></span>
-                <span></span>
-              </HamburgerStyle>
-              <CrossStyle arrow={openMenu}>
-                <span></span>
-                <span></span>
-              </CrossStyle>
-            </MenuToggleStyle>
             <SearchStyled
               value={value}
               indent={openSearch}

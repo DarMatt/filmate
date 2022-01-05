@@ -3,7 +3,6 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { ThemeProvider } from 'styled-components';
 import { light, dark } from './themes';
 import { GlobalStyle } from './components/globalStyles';
-import { AuthProvider } from './context/AuthContext';
 import './assets/styles/style.css';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { getFromStorage } from './services/local-session-storage/service-localStorage';
@@ -17,9 +16,8 @@ function App() {
   const dispatch = useAppDispatch();
   const storageTheme = useAppSelector(getThemeSelector);
   const theme = storageTheme ? light : dark;
-  useEffect(() => {
-    console.log('IM INSIDE APP USEEFF');
 
+  useEffect(() => {
     dispatch(setTheme(JSON.parse(localStorage.getItem(STORAGE_THEME)!)));
 
     const getInitinalDataAndProfileUser = async () => {
@@ -37,11 +35,9 @@ function App() {
       <ErrorBoundary>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <AuthProvider>
-            <Suspense fallback={<span>loading...</span>}>
-              <RouterLayout />
-            </Suspense>
-          </AuthProvider>
+          <Suspense fallback={<span>loading...</span>}>
+            <RouterLayout />
+          </Suspense>
         </ThemeProvider>
       </ErrorBoundary>
     </StrictMode>

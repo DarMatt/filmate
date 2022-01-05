@@ -13,6 +13,7 @@ export const GenerWrapperStyled = styled.section`
     position: relative;
     display: flex;
     align-items: center;
+    margin-left: 20px;
     font-size: 24px;
     line-height: 29px;
     color: #6c6c6c;

@@ -14,12 +14,8 @@ import {
   InputValidationStyledStyled,
 } from './styles';
 import Swal from 'sweetalert2';
-import { useHistory, useLocation, useRouteMatch } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import Modal, { IProps } from '../modal';
-import { apiUrl } from '../../api/URLs';
-import { useAuth } from '../../context/AuthContext';
-import { post } from '../../services/fetch';
-import useOnOutsideClick from '../../hooks/useOnOutsideClick';
 import { authAsyncActions } from '../../redux-slices/auth-slice';
 import { useAppDispatch } from '../../hooks/redux';
 import { HTTP_FULFILLED_STATUS, HTTP_REJECTED_STATUS } from '../../CONST/http-request-status';
@@ -30,7 +26,6 @@ const passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])
 
 const SignIn: React.FC<IProps> = ({ onClick }) => {
   const params = new URLSearchParams(location.search);
-  const auth = useAuth();
   const history = useHistory();
   const match = useLocation();
   const dispatch = useAppDispatch();

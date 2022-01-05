@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     position: 'fixed',
     top: '10%',
-    left: 'calc(50% - 243px)',
+    left: 'calc(50% - 220px)',
     marginTop: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
     backdropFilter: 'blur(24px)',
     borderRadius: '20px',
     width: '486px',
+    ['@media (max-width: 500px)']: {
+      left: 'calc(50% - 180px)',
+      width: '365px',
+      padding: '40px 34px',
+    },
   },
 }));
 

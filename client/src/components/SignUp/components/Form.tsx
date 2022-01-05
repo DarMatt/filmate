@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Form: React.FC<any> = ({children, ...props}) => {
+export const Form: React.FC<any> = ({ children, ...props }) => {
   const styles = useStyles();
   return (
     <form className={styles.root} noValidate {...props}>

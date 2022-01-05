@@ -47,6 +47,10 @@ export const FilmListStyled = styled.ul`
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
+
+  @media (max-width: 405px) {
+    padding-left: 0;
+  }
 `;
 
 export const MovieItemStyled = styled.li`

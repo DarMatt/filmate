@@ -7,10 +7,10 @@ import { MainContainer } from './components/MainContainer';
 import Typography from '@material-ui/core/Typography';
 import { Form } from './components/Form';
 import { Input } from './components/Input';
+import { useTranslation } from 'react-i18next';
 import { PrimaryButton } from './components/PrimaryButton';
 import { FormControlLabel, Checkbox } from '@material-ui/core';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
-import { useData } from '../../context/DataContext';
 import { IDefaultValues, IStep2 } from '../../interfaces/signUp';
 import Modal, { IProps } from '../modal';
 import {
@@ -58,6 +58,7 @@ const Step2: React.FC<IProps> = ({ onClick }) => {
   const data = useAppSelector(getUserDataSelector);
   const history = useHistory();
   const dispatch = useAppDispatch();
+  const { t } = useTranslation(['common']);
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -96,7 +97,7 @@ const Step2: React.FC<IProps> = ({ onClick }) => {
             className="icon-add-plus"
           ></PlusCloseStyle>
           <Typography component="h2" variant="h5">
-            Create a security password
+            {t('create_password')}
           </Typography>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <StepTwoLabelStyle htmlFor="">
@@ -180,10 +181,10 @@ const Step2: React.FC<IProps> = ({ onClick }) => {
                 <StepEndStyle>4</StepEndStyle>
               </div>
               <button type="submit">
-                Next step <span className="icon-next-right-arrow"></span>
+                {t('next_step')} <span className="icon-next-right-arrow"></span>
               </button>
             </StepsBoxStyle>
-            <PrimaryButton disabled={true}>Submit</PrimaryButton>
+            <PrimaryButton disabled={true}>{t('submit')}</PrimaryButton>
           </Form>
         </MainContainer>
       </StepWrapperStyle>

@@ -12,7 +12,6 @@ import {
   DescFilmInnerStyled,
   DescTitleStyled,
   DescDescriptionStyled,
-  DescFilmBtnInnerStyled,
   LinkStyledStyled,
   MovieGenre,
   MovieDesc,
@@ -27,7 +26,6 @@ import { RemoveFromMenu } from '../RemoveFromMenu/RemoveFromMenu';
 import { getGenre, isSomeKeyTrue } from '../../utils/helpers';
 import { useHistory, useRouteMatch } from 'react-router';
 import { ERoutes } from '../../CONST/list-local-routes/routes';
-import allGenres from '../Genres/allGenres';
 import { useTranslation } from 'react-i18next';
 interface IMovieType {
   film: IMovieCard;
@@ -46,6 +44,7 @@ export const MovieCard: React.FC<IMovieType> = ({ film, size, setServerMovies })
   const findeIndex = (url: string | string[]) => {
     return url.lastIndexOf('/') === 0 ? url : url.slice(0, url.lastIndexOf('/'));
   };
+
   return (
     <>
       <LinkStyledStyled
