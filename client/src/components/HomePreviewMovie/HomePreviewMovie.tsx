@@ -22,8 +22,7 @@ export const HomePreviewMovie: React.FC = () => {
   const setMainImg = () => {
     setIndex((prev) => (prev === movies.length - 1 ? 0 : prev + 1));
   };
-  console.log('HomePreviewMovieMOVIE', movies[index]);
-  console.log('INDEX', index);
+
   return (
     <>
       {!movies.length ? (
@@ -49,7 +48,7 @@ export const HomePreviewMovie: React.FC = () => {
                 <AddToMenu movie={movie} size={UiSize.REGULAR} />
               </S.BtnsInner>
             </S.PreviewContent>
-            <S.PreviewArrow position={'bottom'} className="icon-next-right-arrow"></S.PreviewArrow>
+            {/* <S.PreviewArrow position={'bottom'} className="icon-next-right-arrow"></S.PreviewArrow> */}
           </S.PreviewInner>
         </S.PreviewWrapper>
       )}

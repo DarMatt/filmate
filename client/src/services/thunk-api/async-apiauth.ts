@@ -15,9 +15,6 @@ export const asyncApiAuth = {
         body: data,
         url: API_ENDPOINT_SIGN_UP,
       });
-      console.log('resp.data', resp.data);
-      // dispatch(authUser());
-      // dispatch(putUserToStore(resp.data));
       return resp.data;
     }
   ),
@@ -28,7 +25,6 @@ export const asyncApiAuth = {
         url: API_ENDPOINT_LOGIN,
         body: data,
       });
-      // dispatch(setDefaultAddressToForm({ defaultAddress: resp.data?.address }));
       dispatch(login(resp.data));
       return resp.data;
     }

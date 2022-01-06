@@ -30,8 +30,6 @@ export const Skeleton: React.FC<iProps> = ({ type }) => {
     </S.PreviewSKWrapper>
   );
 
-  console.log('Skeleton', Array(counter).fill(<FeedSkeleton />));
-
   if (type === 'feed') return [...Array(counter).keys()].map((el) => <FeedSkeleton key={el} />);
   if (type === 'preview') return <PreviewSkeleton />;
 };

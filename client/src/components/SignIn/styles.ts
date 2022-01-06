@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+type IProps = {
+  format?: string;
+};
+
 export const WrapperSignInStyled = styled.section`
   position: fixed;
   width: 100vw;
@@ -186,9 +190,9 @@ export const LinkClickStyled = styled(Link)`
   }
 `;
 
-export const InputValidationStyledStyled = styled.div`
+export const InputValidationStyledStyled = styled.div<IProps>`
   position: absolute;
-  bottom: -18px;
+  bottom: ${({ format }) => (format === 'email' ? '-18px' : '-35px')};
   width: 370px;
   font-size: 14px;
   color: #cc4e5c;

@@ -1,9 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  HTTP_FULFILLED_STATUS,
-  HTTP_PENDING_STATUS,
-  HTTP_REJECTED_STATUS,
-} from '../CONST/http-request-status';
 import { STORAGE_NAME } from '../CONST/key-localStorage';
 import { ISignUp } from '../interfaces/signUp';
 import {
@@ -36,7 +31,6 @@ export const AuthSlice = createSlice({
   reducers: {
     login: (state, action) => {
       state.token = action.payload.token;
-      // state.loading = HTTP_FULFILLED_STATUS;
       state.userId = action.payload.userId;
       state.isAuth = true;
       if (action.payload?.token) {
@@ -57,9 +51,7 @@ export const AuthSlice = createSlice({
       removeFromStorage(STORAGE_NAME);
     },
     signup: (state, action) => {
-      console.log('action', action);
       state.userData = { ...state.userData, ...action.payload };
-      //some logic запись а в санке отдельный метод отправляет и внутри достаю из useAppSelector то что сохранялось
     },
     putUserToStore: (state, action) => {
       state.userData = action.payload;

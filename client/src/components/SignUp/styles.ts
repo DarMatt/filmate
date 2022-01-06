@@ -9,6 +9,37 @@ export const StepWrapperStyle = styled.section`
   z-index: 25;
   background: rgba(52, 54, 74, 0.25);
   backdrop-filter: blur(5px);
+  overflow-y: scroll;
+`;
+
+export const ResultMainContainer = styled.div`
+  position: fixed;
+  width: 620px;
+  top: 10%;
+  left: calc(50% - 220px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 90px 64px;
+  background: #ffffff;
+  backdrop-filter: blur(24px);
+  border-radius: 20px;
+
+  @media (max-height: 1150px) {
+    top: 3%;
+    left: calc(50% - 300px);
+    padding: 50px 64px;
+  }
+  @media (max-width: 785px) {
+    width: 475px;
+    left: calc(50% - 250px);
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  @media (max-width: 520px) {
+    width: 440px;
+    left: calc(50% - 220px);
+  }
 `;
 
 export const StepTwoLabelStyle = styled.label`

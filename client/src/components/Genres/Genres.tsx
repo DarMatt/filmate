@@ -16,8 +16,7 @@ export const Genres: React.FC = () => {
   const history = useHistory();
   const { params } = useRouteMatch<MatchParams>();
   const { t } = useTranslation(['common']);
-  const url = useRouteMatch();
-  console.log('url', url);
+
   useEffect(() => {
     const searchGenre = allGenres?.find((genre): { id: number; gener: string } | boolean => {
       return genre.id === +params.genre;

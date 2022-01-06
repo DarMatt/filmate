@@ -21,6 +21,12 @@ const useStyles = makeStyles((theme) => ({
       width: '365px',
       padding: '40px 34px',
     },
+    ['@media (max-height: 815px)']: {
+      padding: '50px 64px',
+    },
+    ['@media (max-height: 730px)']: {
+      top: '0',
+    },
   },
 }));
 

@@ -11,8 +11,6 @@ export const API_KEY = '?api_key=be9d1bbbdf88bb1c65a5f3dbb02bbf5c';
 
 export const moviesPopular = `movie/popular${API_KEY}`;
 
-// export const movieImages = `${BASE_URL}/images${API_KEY}`;
-
 export const getImgUrl = (path: string | undefined) => {
   return img + path;
 };

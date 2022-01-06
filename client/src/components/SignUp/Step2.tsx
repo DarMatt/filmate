@@ -27,7 +27,7 @@ import {
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { signup } from '../../redux-slices/auth-slice';
 import { getUserDataSelector } from '../../selectors/selectors';
-import { ROUTE_STEP_3_PAGE } from '../../CONST/list-local-routes/routes';
+import { ROUTE_RESULTS_PAGE, ROUTE_STEP_3_PAGE } from '../../CONST/list-local-routes/routes';
 const passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
 const schema = yup.object().shape({
@@ -80,7 +80,7 @@ const Step2: React.FC<IProps> = ({ onClick }) => {
   const hasPhone = watch('hasPhone');
 
   const onSubmit = (values: IStep2) => {
-    history.push(ROUTE_STEP_3_PAGE);
+    history.push(ROUTE_RESULTS_PAGE);
     dispatch(signup(values));
     reset();
     // setValues(values);

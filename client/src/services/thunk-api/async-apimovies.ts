@@ -1,5 +1,4 @@
 import { getMovieGenre, getPopular, getSearchMovies } from '../../api/api';
-import { IMoviesType } from '../../api/apiTypes';
 import {
   API_ENDPOINT_DELETE_FROM_FAVORITE,
   API_ENDPOINT_DELETE_FROM_WATCH_LATER,
@@ -8,16 +7,11 @@ import {
   API_ENDPOINT_SET_TO_FAVORITE,
   API_ENDPOINT_SET_TO_WATCH_LATER,
 } from '../../CONST/api-endpoints';
-import { STORAGE_NAME } from '../../CONST/key-localStorage';
 import { MOVIE_TYPES_PREFIX } from '../../CONST/types-prefix-thunk/type-prefix-movie';
-import { IMovieCard } from '../../interfaces/movieCard';
-import { IMovies } from '../../interfaces/movieList';
 import { setMovies } from '../../redux-slices/movie-slice';
-import { AppDispatch } from '../../store/store';
-import { addLikesToServerMovies, fetchMovies } from '../../utils/helpers';
+import { fetchMovies } from '../../utils/helpers';
 import { AxiosService } from '../api/axios.service';
 import { AsyncThunkService } from '../asyncThunk-service/asyncThunk-service';
-import { getFromStorage } from '../local-session-storage/service-localStorage';
 
 const axiosService = new AxiosService();
 const asyncThunkService = new AsyncThunkService();
@@ -34,8 +28,6 @@ export const asyncApiMovies = {
   setMoviesGenre: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.setMovieGenreAction,
     async (genre: any, { dispatch }: any) => {
-      const accessToken = getFromStorage(STORAGE_NAME).token;
-      console.log('accessToken', accessToken);
       getMovieGenre(genre).then(async (resImdb) => {
         fetchMovies(dispatch, resImdb);
       });
@@ -44,8 +36,6 @@ export const asyncApiMovies = {
   setSearchMovies: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.setSearchMovieAction,
     async (query: any, { dispatch }: any) => {
-      const accessToken = getFromStorage(STORAGE_NAME).token;
-      console.log('accessToken', accessToken);
       query
         ? getSearchMovies(query).then(async (resImdb) => {
             fetchMovies(dispatch, resImdb);

@@ -53,7 +53,6 @@ export const fetchMovies = async (
   resImdb: IMoviesType
 ) => {
   const accessToken = getFromStorage(STORAGE_NAME).token;
-  console.log('accessToken', accessToken);
   if (accessToken) {
     try {
       const respMongoFavorite = await axiosService.clientGet({
@@ -62,7 +61,6 @@ export const fetchMovies = async (
       const respMongoWatchLater = await axiosService.clientGet({
         url: API_ENDPOINT_GET_WATCH_LATER,
       });
-      console.log('respMongoWatchLater', respMongoWatchLater);
       dispatch(
         setMovies(
           addLikesToServerMovies(respMongoFavorite.data, respMongoWatchLater.data, resImdb.results)

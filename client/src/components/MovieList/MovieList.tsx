@@ -3,11 +3,7 @@ import { MovieCard } from '../MovieCard/MovieCard';
 import { MovieLWrapperStyled, FilmListStyled, MovieItemStyled } from './styles';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { movieAsyncActions } from '../../redux-slices/movie-slice';
-import {
-  getMovieLoadingSelector,
-  getMovieSelector,
-  getTokenSelector,
-} from '../../selectors/selectors';
+import { getMovieSelector, getTokenSelector } from '../../selectors/selectors';
 import { useRouteMatch } from 'react-router';
 import { MatchParams } from '../Genres/Genres';
 import { useTranslation } from 'react-i18next';

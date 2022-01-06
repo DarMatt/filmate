@@ -8,9 +8,6 @@ export const setToStorage = (
   value: any,
   typeStorage = TYPE_OF_STORAGE.localStorage
 ) => {
-  console.log('key:', key);
-  console.log('value:', value);
-  console.log('typeStorage:', typeStorage);
   return typeStorage === TYPE_OF_STORAGE.localStorage
     ? localStorage.setItem(key, value)
     : sessionStorage.setItem(key, value);

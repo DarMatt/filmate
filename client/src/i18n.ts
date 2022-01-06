@@ -5,7 +5,7 @@ import commonRu from './translations/ru/common.json';
 import commonEn from './translations/en/common.json';
 import { DEFAULT_LOCALE } from './CONST/locales';
 import { LOCALE } from './CONST/key-localStorage';
-console.log('DEFAULT_LOCALE', DEFAULT_LOCALE);
+
 const resources = {
   ru: {
     common: commonRu,

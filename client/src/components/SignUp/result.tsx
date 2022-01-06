@@ -16,12 +16,11 @@ import {
 import React from 'react';
 import { useHistory, useLocation } from 'react-router';
 import Swal from 'sweetalert2';
-import { MainContainer } from './components/MainContainer';
 import { InsertDriveFile } from '@material-ui/icons';
 import { PrimaryButton } from './components/PrimaryButton';
 import { useMessage } from '../../hooks/message.hook';
 import Modal, { IProps } from '../modal';
-import { LinkStyledStyled, StepWrapperStyle } from './styles';
+import { LinkStyledStyled, ResultMainContainer, StepWrapperStyle } from './styles';
 import { getUserDataSelector } from '../../selectors/selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { authAsyncActions } from '../../redux-slices/auth-slice';
@@ -49,7 +48,7 @@ const Result: React.FC<IProps> = ({ onClick }) => {
   const entries = Object.entries(data).filter((entry) => entry[0] !== 'files');
   const { files, email, password } = data;
   const dispatch = useAppDispatch();
-  console.log('registerData', data);
+
   const onSubmit = async () => {
     const info = await dispatch(authAsyncActions.signUpAction({ ...data }));
 
@@ -70,7 +69,7 @@ const Result: React.FC<IProps> = ({ onClick }) => {
   return params.get('results') ? (
     <Modal onClick={onClick}>
       <StepWrapperStyle>
-        <MainContainer maxWidth="md" style={{ width: '620px' }}>
+        <ResultMainContainer>
           <Typography component="h2" variant="h5" style={{ paddingBottom: '20px' }}>
             {t('check_info')}
           </Typography>
@@ -116,7 +115,7 @@ const Result: React.FC<IProps> = ({ onClick }) => {
           <LinkStyledStyled to={{ pathname: match.pathname, search: ROUTE_STEP_1_PAGE }}>
             {t('start_over')}
           </LinkStyledStyled>
-        </MainContainer>
+        </ResultMainContainer>
       </StepWrapperStyle>
     </Modal>
   ) : null;

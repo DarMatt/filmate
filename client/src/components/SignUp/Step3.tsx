@@ -34,7 +34,6 @@ const Step3: React.FC<IProps> = ({ onClick }) => {
 
   const onSubmit = (values: IStep3) => {
     history.push(ROUTE_RESULTS_PAGE);
-    console.log('filesValues', values);
     // reset();
     // dispatch(signup(values));
     // setValues(values);

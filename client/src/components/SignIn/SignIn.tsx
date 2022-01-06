@@ -37,7 +37,7 @@ const SignIn: React.FC<IProps> = ({ onClick }) => {
       password: '',
     },
     validationSchema: Yup.object({
-      email: Yup.string().required('Required'),
+      email: Yup.string().email('Email should have correct format').required('Required'),
       password: Yup.string()
         .min(8, 'Minimum characters should be 8')
         .matches(passwordRegExp, 'Password must have one upper, lower case, number, special symbol')
@@ -81,7 +81,9 @@ const SignIn: React.FC<IProps> = ({ onClick }) => {
               placeholder="Email"
             />
             {touched.email && errors.email ? (
-              <InputValidationStyledStyled>{errors.email}</InputValidationStyledStyled>
+              <InputValidationStyledStyled format={'email'}>
+                {errors.email}
+              </InputValidationStyledStyled>
             ) : null}
           </label>
           <label htmlFor="">
