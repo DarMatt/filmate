@@ -27,8 +27,7 @@ export const MovieList: React.FC = () => {
     let promise: IPromise;
     if (params.genre) {
       promise = dispatch(movieAsyncActions.setMoviesGenre(params.genre));
-    }
-    if (search) {
+    } else if (search) {
       promise = dispatch(movieAsyncActions.setSearchMovies(search));
     } else {
       promise = dispatch(movieAsyncActions.setMoviesAction(null));
@@ -44,8 +43,7 @@ export const MovieList: React.FC = () => {
         dispatch(
           movieAsyncActions.setMoviesScrollGenre({ movies, genre: params.genre, page: currentPage })
         );
-      }
-      if (search) {
+      } else if (search) {
         dispatch(
           movieAsyncActions.setSearchScrollMovies({ movies, query: search, page: currentPage + 1 })
         );
