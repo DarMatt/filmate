@@ -33,7 +33,7 @@ export const Genres: React.FC = () => {
     !isPopular ? history.push(`/main-page/${id}`) : history.push('/main-page');
     isPopular
       ? dispatch(movieAsyncActions.setMoviesAction())
-      : dispatch(movieAsyncActions.setMoviesGenre(id));
+      : dispatch(movieAsyncActions.setMoviesGenre({ genre: id }));
   };
 
   return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useRouteMatch } from 'react-router-dom';
 import { Settings } from '../Settings/Settings';
 import { useHistory } from 'react-router-dom';
 import {
@@ -15,10 +15,12 @@ import {
 } from './styles';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getAuthStatusSelector } from '../../selectors/selectors';
-import { ROUTE_LOGIN_PAGE } from '../../CONST/list-local-routes/routes';
+import { ERoutes, ROUTE_LOGIN_PAGE } from '../../CONST/list-local-routes/routes';
 import { useTranslation } from 'react-i18next';
 import { movieAsyncActions } from '../../redux-slices/movie-slice';
 import { useDebounce } from '../../hooks/useDebounced';
+import { findIndex } from '../../utils/helpers';
+import { useDidUpdateEffect } from '../../hooks/useDidUpdate';
 
 interface IHeaderProps {
   openSearch: boolean;
@@ -36,10 +38,17 @@ export const Header: React.FC<IHeaderProps> = ({ openSearch, setOpenSearch }) =>
   const { t } = useTranslation(['common']);
   const debouncedSearchTerm = useDebounce(value, 1300);
 
-  useEffect(() => {
+  useDidUpdateEffect(() => {
+    history.push({
+      pathname: ERoutes.home,
+      search: `?search=${value}`,
+    });
     dispatch(movieAsyncActions.setSearchMovies(value));
   }, [debouncedSearchTerm]);
 
+  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
   return (
     <>
       <HeaderNavStyled>
@@ -47,10 +56,10 @@ export const Header: React.FC<IHeaderProps> = ({ openSearch, setOpenSearch }) =>
           <LogoSearchInnerStyled>
             <LogoStyled onClick={() => history.push(match.pathname)}></LogoStyled>
             <SearchStyled
-              value={value}
+              value={value.trim()}
               indent={openSearch}
               placeholder={t('search')}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
+              onChange={onSearchChange}
             />
             <SearchBtnStyle
               onClick={() => {

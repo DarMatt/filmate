@@ -95,6 +95,7 @@ S.ContentBtnWatch = styled.button`
   line-height: 22px;
   font-weight: 500;
   color: #000;
+  cursor: pointer;
   @media (max-width: 1380px) {
     padding: 14px 50px;
   }

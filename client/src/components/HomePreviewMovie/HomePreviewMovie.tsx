@@ -9,8 +9,9 @@ import { IMovieCard } from '../../interfaces/movieCard';
 import { initialMovieState } from '../MovieDetails/MovieDetails';
 import { useTranslation } from 'react-i18next';
 import { RemoveFromMenu } from '../RemoveFromMenu/RemoveFromMenu';
-import { isSomeKeyTrue } from '../../utils/helpers';
+import { findIndex, isSomeKeyTrue } from '../../utils/helpers';
 import { Skeleton } from '../Skeleton/Skeleton';
+import { useHistory, useRouteMatch } from 'react-router';
 
 export const HomePreviewMovie: React.FC = () => {
   const movies = useAppSelector<IMovieCard[]>(getMovieSelector);
@@ -18,6 +19,8 @@ export const HomePreviewMovie: React.FC = () => {
   const movie = movies ? movies[index] : initialMovieState;
   const { t } = useTranslation(['common']);
   const img = getImgUrl(`original${movie?.backdrop_path}`);
+  const { url } = useRouteMatch();
+  const history = useHistory();
 
   const setMainImg = () => {
     setIndex((prev) => (prev === movies.length - 1 ? 0 : prev + 1));
@@ -44,7 +47,11 @@ export const HomePreviewMovie: React.FC = () => {
             <S.PreviewContent>
               <S.ContentTitle>{movie?.title}</S.ContentTitle>
               <S.BtnsInner>
-                <S.ContentBtnWatch>{t('watch')}</S.ContentBtnWatch>
+                <S.ContentBtnWatch
+                  onClick={() => history.push(`${findIndex(url)}/movie/${movie.id}`)}
+                >
+                  {t('watch')}
+                </S.ContentBtnWatch>
                 <AddToMenu movie={movie} size={UiSize.REGULAR} />
               </S.BtnsInner>
             </S.PreviewContent>

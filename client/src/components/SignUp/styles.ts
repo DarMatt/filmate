@@ -30,6 +30,10 @@ export const ResultMainContainer = styled.div`
     left: calc(50% - 300px);
     padding: 50px 64px;
   }
+  @media (max-height: 815px) {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
   @media (max-width: 785px) {
     width: 475px;
     left: calc(50% - 250px);

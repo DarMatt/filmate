@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
     letterSpacing: '0.04em',
     pointer: 'not-allowed',
+    ['@media (max-height: 815px)']: {
+      margin: '0',
+    },
   },
 }));
 

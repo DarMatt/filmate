@@ -31,6 +31,10 @@ const axiosService = new AxiosService();
 
 export const isSomeKeyTrue = (obj: any) => Object.values(obj).some((v) => v === true);
 
+export const findIndex = (url: string | string[]) => {
+  return url.lastIndexOf('/') === 0 ? url : url.slice(0, url.lastIndexOf('/'));
+};
+
 export const addLikesToServerMovies = (
   favoriteMovies: IMovies[],
   watchLaterM: IMovies[],
@@ -50,7 +54,7 @@ export const addLikesToServerMovies = (
 
 export const fetchMovies = async (
   dispatch: (arg0: { payload: IMovies[]; type: string }) => void,
-  resImdb: IMoviesType
+  resImdb: IMovies[]
 ) => {
   const accessToken = getFromStorage(STORAGE_NAME).token;
   if (accessToken) {
@@ -62,15 +66,13 @@ export const fetchMovies = async (
         url: API_ENDPOINT_GET_WATCH_LATER,
       });
       dispatch(
-        setMovies(
-          addLikesToServerMovies(respMongoFavorite.data, respMongoWatchLater.data, resImdb.results)
-        )
+        setMovies(addLikesToServerMovies(respMongoFavorite.data, respMongoWatchLater.data, resImdb))
       );
     } catch {
-      dispatch(setMovies(resImdb.results));
+      dispatch(setMovies(resImdb));
     }
   } else {
-    dispatch(setMovies(resImdb.results));
+    dispatch(setMovies(resImdb));
   }
 };
 

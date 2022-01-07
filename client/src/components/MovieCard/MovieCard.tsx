@@ -23,7 +23,7 @@ import { getImgUrl } from '../../api/URLs';
 import { AddToMenu } from '../AddToMenu/AddToMenu';
 import { UiSize } from '../../enums/UiSize';
 import { RemoveFromMenu } from '../RemoveFromMenu/RemoveFromMenu';
-import { getGenre, isSomeKeyTrue } from '../../utils/helpers';
+import { findIndex, getGenre, isSomeKeyTrue } from '../../utils/helpers';
 import { useHistory, useRouteMatch } from 'react-router';
 import { ERoutes } from '../../CONST/list-local-routes/routes';
 import { useTranslation } from 'react-i18next';
@@ -41,14 +41,11 @@ export const MovieCard: React.FC<IMovieType> = ({ film, size, setServerMovies })
   const { url } = useRouteMatch();
   const { t } = useTranslation(['common']);
   const poster = getImgUrl(`w200${film.poster_path}`);
-  const findeIndex = (url: string | string[]) => {
-    return url.lastIndexOf('/') === 0 ? url : url.slice(0, url.lastIndexOf('/'));
-  };
 
   return (
     <>
       <LinkStyledStyled
-        onClick={() => history.push(`${findeIndex(url)}/movie/${film.id}`)}
+        onClick={() => history.push(`${findIndex(url)}/movie/${film.id}`)}
         onMouseLeave={() => {
           setVisibleDetails(false);
         }}

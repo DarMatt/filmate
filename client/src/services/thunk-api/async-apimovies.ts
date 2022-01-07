@@ -21,15 +21,31 @@ export const asyncApiMovies = {
     MOVIE_TYPES_PREFIX.setMoviesAction,
     async (_: void, { dispatch }: any) => {
       getPopular().then(async (resImdb) => {
-        fetchMovies(dispatch, resImdb);
+        fetchMovies(dispatch, resImdb.results);
+      });
+    }
+  ),
+  setMoviesScrollAction: asyncThunkService.launchAsyncThunk(
+    MOVIE_TYPES_PREFIX.setMoviesScrollAction,
+    async (data: any, { dispatch }: any) => {
+      getPopular(data.page).then(async (resImdb) => {
+        fetchMovies(dispatch, [...data.movies, ...resImdb.results]);
       });
     }
   ),
   setMoviesGenre: asyncThunkService.launchAsyncThunk(
-    MOVIE_TYPES_PREFIX.setMovieGenreAction,
+    MOVIE_TYPES_PREFIX.setMoviesGenreAction,
     async (genre: any, { dispatch }: any) => {
       getMovieGenre(genre).then(async (resImdb) => {
-        fetchMovies(dispatch, resImdb);
+        fetchMovies(dispatch, resImdb.results);
+      });
+    }
+  ),
+  setMoviesScrollGenre: asyncThunkService.launchAsyncThunk(
+    MOVIE_TYPES_PREFIX.setMoviesScrollGenreAction,
+    async (data: any, { dispatch }: any) => {
+      getMovieGenre(data.genre, data.page).then(async (resImdb) => {
+        fetchMovies(dispatch, [...data.movies, ...resImdb.results]);
       });
     }
   ),
@@ -38,10 +54,22 @@ export const asyncApiMovies = {
     async (query: any, { dispatch }: any) => {
       query
         ? getSearchMovies(query).then(async (resImdb) => {
-            fetchMovies(dispatch, resImdb);
+            fetchMovies(dispatch, resImdb.results);
           })
         : getPopular().then(async (resImdb) => {
-            fetchMovies(dispatch, resImdb);
+            fetchMovies(dispatch, resImdb.results);
+          });
+    }
+  ),
+  setSearchScrollMovies: asyncThunkService.launchAsyncThunk(
+    MOVIE_TYPES_PREFIX.setSearchScrollMovieAction,
+    async (data: any, { dispatch }: any) => {
+      data.query
+        ? getSearchMovies(data.query, data.page).then(async (resImdb) => {
+            fetchMovies(dispatch, [...data.movies, ...resImdb.results]);
+          })
+        : getPopular().then(async (resImdb) => {
+            fetchMovies(dispatch, resImdb.results);
           });
     }
   ),

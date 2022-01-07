@@ -4,15 +4,15 @@ import { deleted, get, post } from '../services/fetch';
 import { ImagesType, IMoviesType } from './apiTypes';
 import { moviesPopular, BASE_URL, withVideo, LOCAL_URL, apiUrl, API_KEY } from './URLs';
 
-export const getPopular = (): Promise<IMoviesType> => {
+export const getPopular = (page: number = 1): Promise<IMoviesType> => {
   const lang = localStorage.getItem(LOCALE) || DEFAULT_LOCALE;
-  const url = `${BASE_URL}${moviesPopular}&language=${lang}&page=1`;
+  const url = `${BASE_URL}${moviesPopular}&language=${lang}&page=${page}`;
   return get(url);
 };
 
-export const getSearchMovies = (query: string) => {
+export const getSearchMovies = (query: string, page: number = 1) => {
   const lang = localStorage.getItem(LOCALE) || DEFAULT_LOCALE;
-  const url = `${BASE_URL}search/movie${API_KEY}&language=${lang}&query=${query}&page=1&include_adult=false`;
+  const url = `${BASE_URL}search/movie${API_KEY}&language=${lang}&query=${query}&page=${page}&include_adult=false`;
   return get(url);
 };
 
@@ -22,9 +22,9 @@ export const getMovieDetails = (movie_id: number | string) => {
   return get(url);
 };
 
-export const getMovieGenre = (gener_id: number | string) => {
+export const getMovieGenre = (gener_id: number | string, page: number = 1) => {
   const lang = localStorage.getItem(LOCALE) || DEFAULT_LOCALE;
-  const url = `${BASE_URL}discover/movie${API_KEY}&with_genres=${gener_id}&language=${lang}`;
+  const url = `${BASE_URL}discover/movie${API_KEY}&with_genres=${gener_id}&language=${lang}&page=${page}`;
   return get(url);
 };
 

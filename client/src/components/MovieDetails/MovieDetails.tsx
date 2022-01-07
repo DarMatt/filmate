@@ -64,7 +64,6 @@ const MovieDetailsPage: React.FC = () => {
   const [pageSize, setPageSize] = useState<number>(4);
 
   useEffect(() => {
-    console.log(width);
     width < 767 ? (width < 558 ? setPageSize(2) : setPageSize(3)) : setPageSize(4);
   }, [width]);
 
