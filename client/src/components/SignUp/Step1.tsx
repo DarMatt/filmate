@@ -100,7 +100,7 @@ const Step1: React.FC<IProps> = ({ onClick }) => {
                 {'Step '}
                 <StepStartStyle>1</StepStartStyle>
                 {' / '}
-                <StepEndStyle>4</StepEndStyle>
+                <StepEndStyle>3</StepEndStyle>
               </div>
               <button type="submit">
                 {t('next_step')} <span className="icon-next-right-arrow"></span>

@@ -20,14 +20,14 @@ function App() {
   useEffect(() => {
     dispatch(setTheme(JSON.parse(localStorage.getItem(STORAGE_THEME)!)));
 
-    const getInitinalDataAndProfileUser = async () => {
+    const getInitialDataAndProfileUser = async () => {
       const { token, userId } = getFromStorage(STORAGE_NAME);
 
       if (token) {
         await dispatch(authAsyncActions.getMyProfileAction(userId));
       }
     };
-    getInitinalDataAndProfileUser();
+    getInitialDataAndProfileUser();
   }, [dispatch]);
 
   return (

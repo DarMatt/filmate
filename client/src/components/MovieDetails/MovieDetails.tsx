@@ -27,6 +27,7 @@ import { Suggest } from '../Suggest/Suggest';
 import { CommentsMovie } from '../CommentsMovie/CommentsMovie';
 import useWindowDimensions from '../../hooks/useVieWport';
 import { initialWatchLaterVal } from '../../utils/helpers';
+import { FLEX_END } from '../../CONST/display';
 
 export const initialMovieState = {
   isFavorite: false,
@@ -60,7 +61,6 @@ const MovieDetailsPage: React.FC = () => {
   const { request, IsLoading } = useHttp(getMovieDetails, id);
   const [movieDetails, setMovieDetails] = React.useState<IMovieDetails>(initialMovieState);
   const [pageIndex, setPageIndex] = useState(0);
-  const display = 'flex-end';
   const [pageSize, setPageSize] = useState<number>(4);
 
   useEffect(() => {
@@ -68,7 +68,10 @@ const MovieDetailsPage: React.FC = () => {
   }, [width]);
 
   useEffect(() => {
-    request().then(setMovieDetails);
+    const promise: any = request().then(setMovieDetails);
+    return () => {
+      promise.abort();
+    };
   }, [id]);
 
   const onPageIndex = (index: number) => {
@@ -119,7 +122,7 @@ const MovieDetailsPage: React.FC = () => {
       </MainVideoTitleInnerStyled>
       <PaginationInnerStyled>
         <Pagination
-          display={width > 474 ? display : 'center'}
+          display={width > 474 ? FLEX_END : 'center'}
           index={pageIndex}
           total={movieDetails.videos.results.length}
           onPageIndex={onPageIndex}

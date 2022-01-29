@@ -45,7 +45,10 @@ const Result: React.FC<IProps> = ({ onClick }) => {
   const styles = useStyles();
   const data = useAppSelector(getUserDataSelector);
   const { t } = useTranslation(['common']);
-  const entries = Object.entries(data).filter((entry) => entry[0] !== 'files');
+  // const entries = Object.entries(data).filter((entry) => entry[0] !== 'files');
+  const entries = Object.entries(data)
+    .filter((entry) => entry[0] !== 'password')
+    .filter((entry) => entry[0] !== 'confirmPassword');
   const { files, email, password } = data;
   const dispatch = useAppDispatch();
 
