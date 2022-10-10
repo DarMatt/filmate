@@ -18,7 +18,7 @@ export const ErrorAlert = ({ title, text }: ISweetAlertProps) => {
     icon: 'error',
     title,
     text,
-    confirmButtonColor: '#3a4750',
+    confirmButtonColor: '#00b2ff',
   });
 };
 
@@ -32,7 +32,7 @@ export const ErrorAlertAndRedirect = ({
     icon: 'error',
     title,
     text,
-    confirmButtonColor: '#3a4750',
+    confirmButtonColor: '#00b2ff',
     confirmButtonText: onButtonText,
   }).then(onOkAction);
 };

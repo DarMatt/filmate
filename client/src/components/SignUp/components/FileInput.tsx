@@ -37,6 +37,7 @@ export const FileInput: React.FC<IFileInputProps<any>> = ({
       name={name}
       defaultValue={[]}
       render={({ field: { onChange, onBlur, value, name } }) => {
+        console.log('value', value);
         return (
           <>
             <Dropzone onDrop={onChange}>

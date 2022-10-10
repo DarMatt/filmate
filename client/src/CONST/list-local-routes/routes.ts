@@ -6,7 +6,7 @@ export enum ERoutes {
   favorite = '/favorite',
   watch_later = '/watch-later',
   coming_soon = '/coming-soon',
-  friends = '/friends',
+  friends = '/my-friends',
 }
 export const ROUTE_LOGIN_PAGE = '?sign-in=true';
 export const ROUTE_RESULTS_PAGE = '?results=true';

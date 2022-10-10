@@ -42,6 +42,20 @@ S.PhotoInner = styled.div`
 S.Photo = styled.img`
   position: relative;
   margin-right: 25px;
+  width: 140px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+
+S.ChangePhotoInput = styled.input`
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  cursor: pointer;
 `;
 
 S.ChangePhoto = styled.span`

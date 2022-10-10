@@ -1,23 +1,22 @@
 const cors = require('cors');
 const express = require('express');
 const config = require('config');
-const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const path = require('path');
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 app.use(cors({ credentials: true, origin: 'http://localhost:4200' }));
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(express.json({ extended: true }));
-app.use(
-  fileUpload({
-    createParentPath: true,
-  })
-);
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 app.use('/api/auth', require('./routes/auth.routes'));
+app.use('/api/movie', require('./routes/movie.routes'));
 app.use('/api/watch-later', require('./routes/movie.watch-later.routes'));
 app.use('/api/favorite', require('./routes/movie.favorite.routes'));
 

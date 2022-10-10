@@ -3,29 +3,42 @@ import { S } from './styles';
 import { getImgUrl } from '../../api/URLs';
 import { UserReviews } from '../UserReviews/UserReviews';
 import { useTranslation } from 'react-i18next';
+import { useAppDispatch } from '../../hooks/redux';
+import { movieAsyncActions } from '../../redux-slices/movie-slice';
+import { getFromStorage } from '../../services/local-session-storage/service-localStorage';
+import { STORAGE_NAME } from '../../CONST/key-localStorage';
 
 const ratingNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const commentData = {
   rating: '',
   review: '',
-  spoilers: false,
+  spoiler: '',
 };
 
 type commentDataType = {
   rating: string;
   review: string;
-  spoilers: boolean;
+  spoiler: string;
 };
 
 export const CommentsMovie: React.FC<any> = ({ movieDetails }) => {
   const [comment, setComment] = useState<commentDataType>(commentData);
   const { t } = useTranslation(['common']);
+  const dispatch = useAppDispatch();
+  const { userId } = getFromStorage(STORAGE_NAME);
   const createCommet = (event: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = event.target as HTMLInputElement;
     setComment((prevState) => ({
       ...prevState,
       [name]: value,
     }));
+  };
+
+  const onCommentSubmit = () => {
+    console.log('her');
+    dispatch(
+      movieAsyncActions.addComment({ ...comment, user_id: userId, movie_id: movieDetails.id })
+    );
   };
 
   return (
@@ -39,9 +52,10 @@ export const CommentsMovie: React.FC<any> = ({ movieDetails }) => {
         <S.AddRating>{t('rating')}</S.AddRating>
         <S.NumberRating>
           {ratingNumber.map((num) => (
-            <input
+            <S.RatingInput
+              isActive={+comment.rating === num}
               name="rating"
-              onClick={(event) => {
+              onClick={(event: React.FormEvent<HTMLInputElement>) => {
                 createCommet(event);
               }}
               value={num}
@@ -63,19 +77,19 @@ export const CommentsMovie: React.FC<any> = ({ movieDetails }) => {
                   createCommet(event);
                 }}
                 type="radio"
-                name="spoilers"
+                name="spoiler"
               />
               {t('yes')}
             </label>
             <label htmlFor="">
-              <input value="No" onChange={createCommet} type="radio" name="spoilers" />
+              <input value="No" onChange={createCommet} type="radio" name="spoiler" />
               {t('no')}
             </label>
           </div>
         </S.SpoilersInner>
-        <S.ButtonSubmitComment>{t('submit')}</S.ButtonSubmitComment>
+        <S.ButtonSubmitComment onClick={onCommentSubmit}>{t('submit')}</S.ButtonSubmitComment>
       </S.CommentsForm>
-      <UserReviews />
+      <UserReviews moveId={movieDetails.id} />
     </S.CommentsWrapper>
   );
 };

@@ -23,10 +23,11 @@ import Modal, { IProps } from '../modal';
 import { LinkStyledStyled, ResultMainContainer, StepWrapperStyle } from './styles';
 import { getUserDataSelector } from '../../selectors/selectors';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { authAsyncActions } from '../../redux-slices/auth-slice';
+import { authAsyncActions, updateUserInfo, login } from '../../redux-slices/auth-slice';
 import { useTranslation } from 'react-i18next';
 import { HTTP_FULFILLED_STATUS, HTTP_REJECTED_STATUS } from '../../CONST/http-request-status';
 import { ROUTE_LOGIN_PAGE, ROUTE_STEP_1_PAGE } from '../../CONST/list-local-routes/routes';
+import { profile } from '../../assets/images/files';
 
 const useStyles = makeStyles({
   root: {
@@ -48,21 +49,26 @@ const Result: React.FC<IProps> = ({ onClick }) => {
   // const entries = Object.entries(data).filter((entry) => entry[0] !== 'files');
   const entries = Object.entries(data)
     .filter((entry) => entry[0] !== 'password')
+    .filter((entry) => entry[0] !== 'files')
     .filter((entry) => entry[0] !== 'confirmPassword');
   const { files, email, password } = data;
   const dispatch = useAppDispatch();
-
   const onSubmit = async () => {
-    const info = await dispatch(authAsyncActions.signUpAction({ ...data }));
+    const fileInstance = files || profile;
+    const info = await dispatch(authAsyncActions.signUpAction({ ...data, files: fileInstance }));
 
     const {
       meta: { requestStatus },
     } = info;
     if (requestStatus === HTTP_FULFILLED_STATUS) {
+      const { user, accessToken } = info.payload;
       message(info.payload.message);
       Swal.fire('Great job!', 'You become a member of FilmMatt');
       history.push('/');
-      await dispatch(authAsyncActions.loginAction({ email, password }));
+      dispatch(updateUserInfo(user));
+      dispatch(login({ userId: user._id, token: accessToken }));
+      console.log('info.payload', info.payload);
+      // await dispatch(authAsyncActions.loginAction({ email, password }));
     } else if (requestStatus === HTTP_REJECTED_STATUS) {
       Swal.fire('This user is already registered. Please go to Sign In');
       history.push(ROUTE_LOGIN_PAGE);
@@ -103,14 +109,19 @@ const Result: React.FC<IProps> = ({ onClick }) => {
                 {t('files')} 🗃
               </Typography>
               <List>
-                {files.map((f: any, index: number) => (
+                <img
+                  src={files}
+                  alt="avatar"
+                  style={{ maxWidth: '200px', height: 'fitContent;' }}
+                />
+                {/* {files.map((f: any, index: number) => (
                   <ListItem key={index}>
                     <ListItemIcon>
                       <InsertDriveFile />
                     </ListItemIcon>
                     <ListItemText primary={f.name} secondary={f.size} />
                   </ListItem>
-                ))}
+                ))} */}
               </List>
             </>
           )}

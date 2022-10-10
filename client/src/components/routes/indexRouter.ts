@@ -8,12 +8,14 @@ import {
   ROUTE_FAVORITE_DETAILS_PAGE,
   ROUTE_WATCH_LATER_PAGE,
   ROUTE_WATCH_LATER_DETAILS_PAGE,
+  ROUTE_FRIENDS_PAGE,
 } from '../../CONST/list-local-routes/list-routes-protect';
 
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 const MovieDetailsPage = lazy(() => import('../MovieDetails/MovieDetails'));
 const FavoritePage = lazy(() => import('../../pages/FavoritePage/FavoritePage'));
 const WatchLater = lazy(() => import('../../pages/WatchLaterPage/WatchLaterPage'));
+const Friends = lazy(() => import('../../pages/Friends/FriendsChatPage'));
 const ComingSoon = lazy(() => import('../ComingSoon/ComingSoon'));
 const SignIn = lazy(() => import('../SignIn/SignIn'));
 const Step1 = lazy(() => import('../SignUp/Step1'));
@@ -53,6 +55,11 @@ export const PROTECT_ROUTER = [
   {
     path: ROUTE_WATCH_LATER_PAGE.getFullUrl(),
     page: WatchLater,
+    hideAfterLogin: false,
+  },
+  {
+    path: ROUTE_FRIENDS_PAGE.getFullUrl(),
+    page: Friends,
     hideAfterLogin: false,
   },
 ];

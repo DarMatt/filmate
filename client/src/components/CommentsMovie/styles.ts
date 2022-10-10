@@ -94,28 +94,29 @@ S.NumberRating = styled.div`
   display: flex;
   gap: 8px;
   margin-top: 20px;
+`;
 
-  > input {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 19px;
-    color: ${({ theme }) => theme.textColors.detailsTitleColor};
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    background: transparent;
-    transition: all 0.6s;
+S.RatingInput = styled.input<{ isActive: boolean }>`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: ${({ theme }) => theme.textColors.detailsTitleColor};
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.6s;
 
-    &:hover {
-      background-color: rgb(24, 200, 255);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      transform: scale(1.1);
-    }
+  &:hover {
+    background-color: rgb(24, 200, 255);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    transform: scale(1.1);
   }
+  ${({ isActive }) => isActive && 'background-color:rgb(24, 200, 255);'}
 `;
 
 S.ReviewTitle = styled.h4`

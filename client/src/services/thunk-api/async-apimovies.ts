@@ -1,14 +1,16 @@
 import { getMovieGenre, getPopular, getSearchMovies } from '../../api/api';
 import {
+  API_ENDPOINT_ADD_COMMENT,
   API_ENDPOINT_DELETE_FROM_FAVORITE,
   API_ENDPOINT_DELETE_FROM_WATCH_LATER,
+  API_ENDPOINT_GET_COMMENTS,
   API_ENDPOINT_GET_FAVORITE,
   API_ENDPOINT_GET_WATCH_LATER,
   API_ENDPOINT_SET_TO_FAVORITE,
   API_ENDPOINT_SET_TO_WATCH_LATER,
 } from '../../CONST/api-endpoints';
 import { MOVIE_TYPES_PREFIX } from '../../CONST/types-prefix-thunk/type-prefix-movie';
-import { setMovies } from '../../redux-slices/movie-slice';
+import { setMovies, setComments, addToComments } from '../../redux-slices/movie-slice';
 import { fetchMovies } from '../../utils/helpers';
 import { AxiosService } from '../api/axios.service';
 import { AsyncThunkService } from '../asyncThunk-service/asyncThunk-service';
@@ -80,6 +82,30 @@ export const asyncApiMovies = {
         url: API_ENDPOINT_GET_FAVORITE,
       });
       dispatch(setMovies(resp.data));
+    }
+  ),
+  addComment: asyncThunkService.launchAsyncThunk(
+    MOVIE_TYPES_PREFIX.addCommentAction,
+    async (data: any, { dispatch }: any) => {
+      console.log('before req');
+      const resp = await axiosService.clientPost({
+        url: API_ENDPOINT_ADD_COMMENT,
+        body: data,
+      });
+      // return resp.data;
+      console.log('resp.data', resp.data);
+      dispatch(addToComments(resp.data));
+    }
+  ),
+  getComments: asyncThunkService.launchAsyncThunk(
+    MOVIE_TYPES_PREFIX.getCommentsAction,
+    async (data: any, { dispatch }: any) => {
+      const resp = await axiosService.clientGet({
+        url: API_ENDPOINT_GET_COMMENTS + data.id,
+      });
+      console.log('resp.data', resp.data);
+      // return resp.data;
+      dispatch(setComments(resp.data));
     }
   ),
   addMovieToFavorite: asyncThunkService.launchAsyncThunk(

@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { useHistory } from 'react-router';
-import profileImg from '../../assets/images/profile.png';
-import { signOut } from '../../redux-slices/auth-slice';
+import { FileUploader } from 'react-drag-drop-files';
+import { authAsyncActions, signOut } from '../../redux-slices/auth-slice';
 import { S } from './styles';
 import useOnOutsideClick from '../../hooks/useOnOutsideClick';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getUserDataSelector } from '../../selectors/selectors';
 import { ERoutes } from '../../CONST/list-local-routes/routes';
 import { useTranslation } from 'react-i18next';
+import { getFromStorage } from '../../services/local-session-storage/service-localStorage';
+import { STORAGE_NAME } from '../../CONST/key-localStorage';
+import { profile } from '../../assets/images/files';
 
 interface ISettingsProps {
   setOpenModal: () => void;
@@ -19,19 +22,38 @@ export const Settings: React.FC<ISettingsProps> = ({ setOpenModal }) => {
   const dispatch = useAppDispatch();
   const userData = useAppSelector(getUserDataSelector);
   const { t } = useTranslation(['common']);
-
   const logoutHandler = (event: React.FormEvent<EventTarget>): void => {
     event.preventDefault();
     dispatch(signOut());
     history.push('/');
+  };
+  const { userId } = getFromStorage(STORAGE_NAME);
+
+  const onChangePhoto = async (event: ChangeEvent) => {
+    const target = event.target as HTMLInputElement;
+    const files = target.files as FileList;
+    console.log('inside onChangePhoto', files);
+
+    for (let i = 0; i < files.length; i++) {
+      const reader = new FileReader();
+      const formatedFile = files[i];
+      reader.onload = () => {
+        console.log('inside onload', files);
+        dispatch(authAsyncActions.updateAction({ files: reader.result as string, id: userId }));
+      };
+      reader.readAsDataURL(formatedFile);
+    }
   };
 
   return (
     <S.WrapperSettingsStyled ref={innerBorderRef}>
       <S.PersonalInfo>
         <S.PhotoInner>
-          <S.Photo src={profileImg} alt="profile Photo"></S.Photo>
-          <S.ChangePhoto>{t('change_photo')}</S.ChangePhoto>
+          <S.Photo src={userData.files || profile} alt="profile Photo"></S.Photo>
+          <S.ChangePhoto>
+            {t('change_photo')}
+            <S.ChangePhotoInput type="file" onChange={onChangePhoto} />
+          </S.ChangePhoto>
         </S.PhotoInner>
         <S.TitleInner>
           <S.Title>
