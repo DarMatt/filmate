@@ -24,3 +24,9 @@ export const ROUTE_WATCH_LATER_DETAILS_PAGE = {
   params: ['id'],
   getFullUrl: formatterPathConcatPath,
 };
+
+export const ROUTE_FRIENDS_PAGE = {
+  path: ERoutes.friends,
+  params: [],
+  getFullUrl: formatterPathConcatPath,
+};

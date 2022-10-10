@@ -1,7 +1,10 @@
 export const API_ENDPOINT = '/api/auth/';
 export const API_ENDPOINT_SIGN_UP = '/api/auth/register';
 export const API_ENDPOINT_LOGIN = '/api/auth/login';
+export const API_ENDPOINT_UPDATE_USER_INFO = '/api/auth/update/';
 export const API_ENDPOINT_GET_FAVORITE = '/api/favorite';
+export const API_ENDPOINT_ADD_COMMENT = '/api/movie/add-to-comment';
+export const API_ENDPOINT_GET_COMMENTS = '/api/movie/comments/';
 export const API_ENDPOINT_SET_TO_FAVORITE = '/api/favorite/generate';
 export const API_ENDPOINT_DELETE_FROM_FAVORITE = '/api/favorite/';
 export const API_ENDPOINT_GET_WATCH_LATER = '/api/watch-later';

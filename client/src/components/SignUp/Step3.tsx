@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { MainContainer } from './components/MainContainer';
 import Typography from '@material-ui/core/Typography';
@@ -19,6 +19,7 @@ import {
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getUserDataSelector } from '../../selectors/selectors';
 import { ROUTE_RESULTS_PAGE } from '../../CONST/list-local-routes/routes';
+import { signup } from '../../redux-slices/auth-slice';
 
 const Step3: React.FC<IProps> = ({ onClick }) => {
   const data = useAppSelector(getUserDataSelector);
@@ -26,17 +27,30 @@ const Step3: React.FC<IProps> = ({ onClick }) => {
   const params = new URLSearchParams(location.search);
   const { t } = useTranslation(['common']);
   const dispatch = useAppDispatch();
+  const defaultValues = {
+    files: data.files,
+  };
   const { control, handleSubmit, reset } = useForm({
-    defaultValues: {
-      files: data.files,
-    },
+    defaultValues: defaultValues,
   });
 
+  // useEffect(() => {
+  //   reset(defaultValues);
+  // }, [data, reset]);
+
   const onSubmit = (values: IStep3) => {
+    console.log('values', values);
     history.push(ROUTE_RESULTS_PAGE);
-    // reset();
+    for (let i = 0; i < values.files.length; i++) {
+      const reader = new FileReader();
+      const file = values.files[i];
+      reader.onload = () => {
+        dispatch(signup({ files: reader.result as string }));
+      };
+      reader.readAsDataURL(file);
+    }
+
     // dispatch(signup(values));
-    // setValues(values);
   };
 
   return params.get('step-three') ? (

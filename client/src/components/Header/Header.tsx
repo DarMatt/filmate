@@ -14,7 +14,7 @@ import {
   ChatIconStyle,
 } from './styles';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getAuthStatusSelector } from '../../selectors/selectors';
+import { getAuthStatusSelector, getUserDataSelector } from '../../selectors/selectors';
 import { ERoutes, ROUTE_LOGIN_PAGE } from '../../CONST/list-local-routes/routes';
 import { useTranslation } from 'react-i18next';
 import { movieAsyncActions } from '../../redux-slices/movie-slice';
@@ -37,6 +37,7 @@ export const Header: React.FC<IHeaderProps> = ({ openSearch, setOpenSearch }) =>
   const setOpenModal = () => setIsOpen(!isOpen);
   const { t } = useTranslation(['common']);
   const debouncedSearchTerm = useDebounce(value, 1300);
+  const userData = useAppSelector(getUserDataSelector);
 
   useDidUpdateEffect(() => {
     history.push({
@@ -49,6 +50,7 @@ export const Header: React.FC<IHeaderProps> = ({ openSearch, setOpenSearch }) =>
   const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
+
   return (
     <>
       <HeaderNavStyled>
@@ -74,9 +76,13 @@ export const Header: React.FC<IHeaderProps> = ({ openSearch, setOpenSearch }) =>
           ) : (
             <>
               <ChatIconStyle />
-              <UserImgStyled onClick={() => setIsOpen(!isOpen)} className="icon-Profile">
-                <span className="path1"></span>
-                <span className="path2"></span>
+              <UserImgStyled
+                src={userData?.files}
+                onClick={() => setIsOpen(!isOpen)}
+                className="icon-Profile"
+              >
+                {/* <span className="path1"></span>
+                <span className="path2"></span> */}
               </UserImgStyled>
             </>
           )}

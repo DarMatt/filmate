@@ -62,7 +62,7 @@ export class AxiosService {
     return await client.get(url, configForMethod);
   }
 
-  async clientPut({ url, body }: any, options: AxiosRequestConfig<any> | undefined) {
+  async clientPut({ url, body }: any, options = {}) {
     return await client.put(url, body, options);
   }
 

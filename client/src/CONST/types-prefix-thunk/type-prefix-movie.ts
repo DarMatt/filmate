@@ -5,6 +5,8 @@ export const MOVIE_TYPES_PREFIX = {
   setMoviesScrollGenreAction: 'movie/setMoviesScrollGenreAction',
   setSearchMovieAction: 'movie/setSearchMovieAction',
   setSearchScrollMovieAction: 'movie/setSearchScrollMovieAction',
+  addCommentAction: 'movie/addCommentAction',
+  getCommentsAction: 'movie/getCommentsAction',
   getFavoriteMovieAction: 'movie/getFavoriteMovieAction',
   getWatchLaterMovieAction: 'movie/getWatchLaterMovieAction',
   addMovieToFavoriteAction: 'movie/addMovieToFavoriteAction',

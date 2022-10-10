@@ -16,6 +16,10 @@ export const getMovieSelector = (state: RootState) => {
   return state.movies.movies;
 };
 
+export const getCommentSelector = (state: RootState) => {
+  return state.movies.comments;
+};
+
 export const getMovieLoadingSelector = (state: RootState) => {
   return state.movies.isLoading;
 };

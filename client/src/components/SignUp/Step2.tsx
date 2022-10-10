@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -60,6 +60,12 @@ const Step2: React.FC<IProps> = ({ onClick }) => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation(['common']);
   const [showPassword, setShowPassword] = useState(false);
+  const defaultValues = {
+    email: data.email,
+    password: data.password,
+    confirmPassword: data.confirmPassword,
+    hasPhone: data.hasPhone,
+  };
   const {
     register,
     handleSubmit,
@@ -67,22 +73,31 @@ const Step2: React.FC<IProps> = ({ onClick }) => {
     watch,
     reset,
   } = useForm<IDefaultValues>({
-    defaultValues: {
-      email: data.email,
-      password: data.password,
-      confirmPassword: data.confirmPassword,
-      hasPhone: data.hasPhone,
-    },
+    defaultValues: defaultValues,
     mode: 'onBlur',
     resolver: yupResolver(schema),
   });
 
+  useEffect(() => {
+    reset(defaultValues);
+  }, [data, reset]);
+
   const hasPhone = watch('hasPhone');
 
   const onSubmit = (values: IStep2) => {
-    history.push(ROUTE_RESULTS_PAGE);
+    console.log('values', values);
+    // history.push(ROUTE_RESULTS_PAGE);
+    history.push(ROUTE_STEP_3_PAGE);
+    reset(
+      {
+        email: '',
+        password: '',
+        confirmPassword: '',
+        hasPhone: false,
+      },
+      { keepDefaultValues: true }
+    );
     dispatch(signup(values));
-    reset();
     // setValues(values);
   };
 

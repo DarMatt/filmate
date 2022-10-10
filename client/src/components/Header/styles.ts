@@ -355,10 +355,16 @@ export const LinkStyled = styled(Link)`
   cursor: pointer;
 `;
 
-export const UserImgStyled = styled.span`
+export const UserImgStyled = styled.img`
   cursor: pointer;
   font-size: 70px;
   margin-left: 20px;
+  border-radius: 50%;
+  max-width: 70px;
+  width: 100%;
+  max-height: 60px;
+  height: 100%;
+  object-fit: cover;
   @media (max-width: 1380px) {
     font-size: 60px;
   }

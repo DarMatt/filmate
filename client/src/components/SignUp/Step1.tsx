@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -40,27 +40,32 @@ const Step1: React.FC<IProps> = ({ onClick }) => {
   const data = useAppSelector(getUserDataSelector);
   const dispatch = useAppDispatch();
   const { t } = useTranslation(['common']);
+  const defaultValues = { firstName: data?.firstName, lastName: data?.lastName };
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm({
-    defaultValues: { firstName: data.firstName, lastName: data.lastName },
+    defaultValues: defaultValues,
     mode: 'onBlur',
     resolver: yupResolver(schema),
   });
 
+  useEffect(() => {
+    reset(defaultValues);
+  }, [data, reset]);
+
   const onSubmit = (values: IStep1) => {
     history.push(ROUTE_STEP_2_PAGE);
     dispatch(signup(values));
-    reset(
-      {
-        firstName: '',
-        lastName: '',
-      },
-      { keepDefaultValues: true }
-    );
+    // reset(
+    //   {
+    //     firstName: '',
+    //     lastName: '',
+    //   },
+    //   { keepDefaultValues: true }
+    // );
   };
 
   return params.get('step-one') ? (

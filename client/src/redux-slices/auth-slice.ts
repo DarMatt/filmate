@@ -54,12 +54,16 @@ export const AuthSlice = createSlice({
       state.userData = { ...state.userData, ...action.payload };
     },
     putUserToStore: (state, action) => {
+      console.log('action.payload', action.payload);
       state.userData = action.payload;
       state.isAuth = true;
       state.token = getFromStorage(STORAGE_NAME).token;
     },
+    updateUserInfo: (state, action) => {
+      state.userData = { ...state.userData, ...action.payload };
+    },
   },
 });
-export const { login, signOut, signup, putUserToStore } = AuthSlice.actions;
+export const { login, signOut, signup, putUserToStore, updateUserInfo } = AuthSlice.actions;
 export const authAsyncActions = asyncApiAuth;
 export default AuthSlice.reducer;
