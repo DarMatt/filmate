@@ -16,13 +16,11 @@ export const UserReviews: React.FC = () => {
   const dispatch = useAppDispatch();
   const comments = useAppSelector(getCommentSelector);
   const { id } = useParams<{ id?: string }>();
-  console.log('id', id);
 
   useEffect(() => {
     dispatch(movieAsyncActions.getComments({ id: id }));
   }, []);
 
-  console.log('comments', comments);
   return (
     <S.UserReviews>
       <S.CommentsTitle>

@@ -39,8 +39,6 @@ export const asyncApiAuth: IApiAuth = {
     AUTH_TYPES_PREFIX.getMyProfileAction,
     async (user_id: string, { dispatch, getState, signal }: any) => {
       const resp = await axiosService.clientGet({ url: API_ENDPOINT + user_id }, signal);
-      console.log('user_id', user_id);
-      console.log('resp.data', resp.data);
       dispatch(putUserToStore(resp.data));
       return resp.data;
     }

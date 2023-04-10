@@ -8,7 +8,6 @@ class MovieController {
       return res.json(comment);
     } catch (error) {
       // next(error)
-      console.log('error', error)
       res.status(500).json({ message: error });
     }
   }
@@ -16,7 +15,6 @@ class MovieController {
   async getComments(req, res, next) {
     try {
       const params = req.params
-      console.log('params', params);
       const comments = await movieService.getComments(params);
       return res.json(comments);
     } catch (error) {

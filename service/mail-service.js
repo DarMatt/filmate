@@ -16,7 +16,6 @@ class MailService {
   }
 
   async sendActivationMail(to, code) {
-    console.log('im her')
     await this.transporter.sendMail({
       from: config.get('smtpUser'),
       to,

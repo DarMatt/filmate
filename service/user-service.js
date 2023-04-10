@@ -35,10 +35,7 @@ class UserService {
       activationCode
     });
 
-    console.log('1')
-
     await mailService.sendActivationMail(email, activationCode);
-  console.log('2')
     const userDto = new UserDto(user); // id, email
 
     const tokens = tokenService.generateTokens({ ...userDto });
@@ -54,7 +51,6 @@ class UserService {
 
   async activate(activationCode) {
     const user = await User.findOne({activationCode});
-    console.log('user, activationCode', user, activationCode)
     if(!user) {
       throw new Error('Invalid activation code')
     }
@@ -64,9 +60,7 @@ class UserService {
 
   async getCode(email) {
     const user = await User.findOne({ email });
-    console.log('user', user)
     const activationCode = generateOTP();
-    console.log('activationCode', activationCode)
     user.activationCode = activationCode;
     await user.save();
     await mailService.sendActivationMail(email, activationCode);

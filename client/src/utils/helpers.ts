@@ -157,7 +157,6 @@ export const matchExact = (param: string, obj: any) => {
 };
 
 export const getCroppedImg = (image: HTMLImageElement, crop: any): string => {
-  console.log('image, crop', image, crop);
   const canvas: HTMLCanvasElement = document.createElement('canvas');
   const scaleX = image.naturalWidth / image.width;
   const scaleY = image.naturalHeight / image.height;

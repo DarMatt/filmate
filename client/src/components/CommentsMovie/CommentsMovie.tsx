@@ -35,7 +35,6 @@ export const CommentsMovie: React.FC<any> = ({ movieDetails }) => {
   };
 
   const onCommentSubmit = () => {
-    console.log('her');
     dispatch(
       movieAsyncActions.addComment({ ...comment, user_id: userId, movie_id: movieDetails.id })
     );

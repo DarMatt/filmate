@@ -26,7 +26,6 @@ export const MovieImages: React.FC<{ id: string }> = (id) => {
   }, [width]);
 
   useEffect(() => {
-    console.log('inside movieImg');
     getMovieImages(id.id).then((res) => {
       setImages(
         res.posters

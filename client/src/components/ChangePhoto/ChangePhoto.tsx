@@ -9,7 +9,6 @@ export const ChanhePhoto = ({ file, onHandleChange }) => {
 
   const savePhoto = () => {
     setVisibleButtons(false);
-    console.log('file', base64Image);
     onHandleChange(base64Image);
   };
 
