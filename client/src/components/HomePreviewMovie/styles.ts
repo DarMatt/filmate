@@ -69,7 +69,7 @@ S.ContentTitle = styled.h2`
   @media (max-width: 820px) {
     font-size: 27px;
     line-height: 26px;
-  } ;
+  }
 `;
 
 S.BtnsInner = styled.div`

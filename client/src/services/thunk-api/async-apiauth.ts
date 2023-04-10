@@ -8,14 +8,15 @@ import { AUTH_TYPES_PREFIX } from '../../CONST/types-prefix-thunk/types-prefix-a
 import { login, putUserToStore, updateUserInfo } from '../../redux-slices/auth-slice';
 import { AxiosService } from '../api/axios.service';
 import { AsyncThunkService } from '../asyncThunk-service/asyncThunk-service';
+import { IApiAuth, userDispatchType } from './actionTypes';
 
 const axiosService = new AxiosService();
 const asyncThunkService = new AsyncThunkService();
 
-export const asyncApiAuth = {
+export const asyncApiAuth: IApiAuth = {
   signUpAction: asyncThunkService.launchAsyncThunk(
     AUTH_TYPES_PREFIX.signUpAction,
-    async (data: any, { dispatch }: any) => {
+    async (data, _) => {
       const resp = await axiosService.clientPost({
         body: data,
         url: API_ENDPOINT_SIGN_UP,
@@ -25,7 +26,7 @@ export const asyncApiAuth = {
   ),
   loginAction: asyncThunkService.launchAsyncThunk(
     AUTH_TYPES_PREFIX.loginAction,
-    async (data: any, { dispatch }: any) => {
+    async (data, { dispatch }: userDispatchType) => {
       const resp = await axiosService.clientPost({
         url: API_ENDPOINT_LOGIN,
         body: data,
@@ -47,7 +48,7 @@ export const asyncApiAuth = {
   // maybe not right
   updateAction: asyncThunkService.launchAsyncThunk(
     AUTH_TYPES_PREFIX.updateAction,
-    async (data: any, { dispatch }: any) => {
+    async (data, { dispatch }: userDispatchType) => {
       const options = { id: data.id };
       const resp = await axiosService.clientPut(
         {

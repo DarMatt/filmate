@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IMovies } from '../interfaces/movieList';
+import { IApiMovies } from '../services/thunk-api/actionTypes';
 import { asyncApiMovies } from '../services/thunk-api/async-apimovies';
 
 export interface IReviewType {
@@ -37,8 +38,7 @@ export const MoviesSlice = createSlice({
       state.comments = action.payload;
     },
     addToComments: (state, action: PayloadAction<IReviewType>) => {
-      console.log('her addComment', state.comments.push(action.payload));
-      state.comments = [...state.comments, action.payload];
+      state.comments = [action.payload, ...state.comments];
     },
   },
   // extraReducers: {
@@ -56,6 +56,6 @@ export const MoviesSlice = createSlice({
   // },
 });
 
-export const movieAsyncActions = asyncApiMovies;
+export const movieAsyncActions: IApiMovies = asyncApiMovies;
 export const { setMovies, setComments, addToComments } = MoviesSlice.actions;
 export default MoviesSlice.reducer;

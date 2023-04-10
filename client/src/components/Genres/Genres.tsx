@@ -45,7 +45,7 @@ export const Genres: React.FC = () => {
         {t('genres')}:
         <ListOfGenresStyled value={valueOption} onChange={onGenre}>
           {allGenres.map((genre) => (
-            <option id={genre.id} key={genre.gener} value={genre.gener}>
+            <option id={(genre.id || '') as string} key={genre.gener} value={genre.gener}>
               {t(genre.gener)}
             </option>
           ))}

@@ -11,6 +11,7 @@ import { getFromStorage } from '../services/local-session-storage/service-localS
 import { STORAGE_NAME } from '../CONST/key-localStorage';
 import { API_ENDPOINT_GET_FAVORITE, API_ENDPOINT_GET_WATCH_LATER } from '../CONST/api-endpoints';
 import { AxiosService } from '../services/api/axios.service';
+import { Crop } from 'react-image-crop';
 
 export const initialWatchLaterVal = {
   withFamily: false,
@@ -139,9 +140,9 @@ export const ToastError = () => {
 };
 
 export const getGenre = (film: IMovieCard = initialMovieState) => {
-  const genres = [];
+  const genres: string[] = [];
   for (const genre of allGenres) {
-    if (film.genre_ids.includes(genre.id)) {
+    if (film.genre_ids.includes(genre.id as number)) {
       genres.push(genre.gener);
     }
   }
@@ -153,4 +154,29 @@ export const matchExact = (param: string, obj: any) => {
     console.log(param, obj[0]);
   }
   return obj ? param === obj[0] : false;
+};
+
+export const getCroppedImg = (image: HTMLImageElement, crop: any): string => {
+  console.log('image, crop', image, crop);
+  const canvas: HTMLCanvasElement = document.createElement('canvas');
+  const scaleX = image.naturalWidth / image.width;
+  const scaleY = image.naturalHeight / image.height;
+  canvas.width = crop.width;
+  canvas.height = crop.height;
+  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D | null;
+
+  ctx &&
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
+
+  return canvas.toDataURL('image/jpeg');
 };

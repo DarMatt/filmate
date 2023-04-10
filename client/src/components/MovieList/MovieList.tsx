@@ -30,7 +30,7 @@ export const MovieList: React.FC = () => {
     } else if (search) {
       promise = dispatch(movieAsyncActions.setSearchMovies(search));
     } else {
-      promise = dispatch(movieAsyncActions.setMoviesAction(null));
+      promise = dispatch(movieAsyncActions.setMoviesAction());
     }
     return () => {
       promise.abort();

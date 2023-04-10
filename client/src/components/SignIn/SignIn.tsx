@@ -44,7 +44,9 @@ const SignIn: React.FC<IProps> = ({ onClick }) => {
         .required('Required'),
     }),
     onSubmit: async () => {
+      console.log('inside onSubmit');
       const data = await dispatch(authAsyncActions.loginAction({ ...values }));
+      console.log('data', data);
       const {
         meta: { requestStatus },
       } = data;

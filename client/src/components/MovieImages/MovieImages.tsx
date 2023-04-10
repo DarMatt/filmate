@@ -26,6 +26,7 @@ export const MovieImages: React.FC<{ id: string }> = (id) => {
   }, [width]);
 
   useEffect(() => {
+    console.log('inside movieImg');
     getMovieImages(id.id).then((res) => {
       setImages(
         res.posters
@@ -33,7 +34,7 @@ export const MovieImages: React.FC<{ id: string }> = (id) => {
           .map((el) => getImgUrl(`original${el.file_path}`))
       );
     });
-  }, [id]);
+  }, []);
 
   const onPageIndex = (index: number) => {
     setPageIndex(index);

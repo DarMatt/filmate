@@ -1,44 +1,67 @@
 {
+  // "extends": "./base-tsconfig.json",
+  "ts-node": {
+    "compilerOptions": {
+      "baseUrl": ".",
+      "module": "commonjs"
+    }
+  },
+  "typedocOptions": {
+    "entryPoints": [
+      "src/"
+    ],
+    "exclude": [
+      "**/*.tsx"
+    ],
+    "out": "docs"
+  },
   "compilerOptions": {
-    "outDir": "build/dist",
-    "module": "esnext",
-    "target": "es2018",
-    "lib": ["es6", "dom", "esnext.asynciterable"],
-    "strict": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "es2015",
+      "es2016",
+      "es2017"
+    ],
     "allowJs": true,
-    "jsx": "react",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "noImplicitReturns": false,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react",
+    "importHelpers": true,
+    "declaration": true,
+    "sourceMap": true,
     "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": false,
-    "plugins": [{ "name": "tslint-language-service" }],
-    "types": ["node", "@emotion/react/types/css-prop"],
-    "typeRoots": ["src/types", "./node_modules/@types"]
+    "strictFunctionTypes": true,
+    "alwaysStrict": true,
+    "noImplicitReturns": true,
+    "experimentalDecorators": true,
+    "noEmitHelpers": true,
+    "noImplicitAny": false,
+    "strictPropertyInitialization": false,
+    "noImplicitThis": false
   },
-  "include": ["./src", "./typings", "./src/**/*.tsx", "./src/**/*.ts", "src/**/*", "./styles", "routes"],
-
-  "exclude": [
-    "node_modules",
-    "build",
-    "scripts",
-    "acceptance-tests",
-    "webpack.config.js",
-    "src/setupTests.ts",
-    "config",
-    "typedoc.js",
-    "**/*.spec.ts",
-    "**/*.test.ts"
+  "include": [
+    "src"
   ],
-
-  "types": ["./src/typings"]
+  "exclude": [
+    ".idea",
+    "build",
+    "node_modules",
+    "webpack",
+    "src/**/*.js"
+  ],
+  "rules": {
+    "react/jsx-props-no-spreading": "off"
+  }
 }

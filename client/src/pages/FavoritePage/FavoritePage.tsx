@@ -13,7 +13,7 @@ const FavoritePage = () => {
   const { t, i18n } = useTranslation('common');
 
   useEffect(() => {
-    const promise = dispatch(movieAsyncActions.getFavoriteMovie(null));
+    const promise = dispatch(movieAsyncActions.getFavoriteMovie());
     return () => {
       promise.abort();
     };

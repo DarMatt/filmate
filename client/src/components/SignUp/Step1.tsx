@@ -67,7 +67,7 @@ const Step1: React.FC<IProps> = ({ onClick }) => {
     //   { keepDefaultValues: true }
     // );
   };
-
+  console.log('data', data);
   return params.get('step-one') ? (
     <Modal onClick={onClick}>
       <StepWrapperStyle>
