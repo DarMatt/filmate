@@ -41,7 +41,7 @@ export class AsyncThunkService extends AxiosService {
 
   launchAsyncThunk = (
     typePrefix: string,
-    executesFunction: any,
+    executesFunction: (data?: any, thunkAPI?: any) => void,
     options?: AsyncThunkOptions<void, {}> | undefined
   ) => {
     return createAsyncThunk(

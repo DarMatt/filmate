@@ -5,31 +5,22 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { IReviewType, movieAsyncActions } from '../../redux-slices/movie-slice';
 import { getCommentSelector } from '../../selectors/selectors';
+import { useParams } from 'react-router';
 
 type IProps = {
   moveId: string;
 };
 
-export const UserReviews: React.FC<IProps> = ({ moveId }) => {
-  // const [comments, setComments] = useState<IReviewType[]>(getComment(moveId));
+export const UserReviews: React.FC = () => {
   const { t } = useTranslation(['common']);
   const dispatch = useAppDispatch();
   const comments = useAppSelector(getCommentSelector);
-  console.log('movies', comments);
-  // useEffect(() => {
-  //   dispatch(movieAsyncActions.getComments({ id: moveId })).then((res) => setComments(res.payload));
-  // }, [moveId, dispatch]);
+  const { id } = useParams<{ id?: string }>();
 
   useEffect(() => {
-    console.log('inside UserReviews');
-    // const promise = dispatch(movieAsyncActions.getComments({ id: moveId }));
-    dispatch(movieAsyncActions.getComments({ id: moveId }));
-    // return () => {
-    //   promise.abort();
-    // };
-  }, [dispatch, moveId]);
+    dispatch(movieAsyncActions.getComments({ id: id }));
+  }, []);
 
-  console.log('comments', comments);
   return (
     <S.UserReviews>
       <S.CommentsTitle>
@@ -46,7 +37,7 @@ export const UserReviews: React.FC<IProps> = ({ moveId }) => {
               </div>
             </div>
             <section>
-              {comment.spoiler === 'yes' && <S.ReviewSpoiler>{t('spoiler')}</S.ReviewSpoiler>}
+              {comment.spoiler === 'Yes' && <S.ReviewSpoiler>{t('spoiler')}</S.ReviewSpoiler>}
               <S.ReviewRating>{`${comment.rating}/10`}</S.ReviewRating>
             </section>
           </S.BoxUser>

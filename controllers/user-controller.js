@@ -5,9 +5,7 @@ class UserController {
 
   async register(req, res, next) {
     try {
-      console.log('reqreq', req.body)
       const errors = validationResult(req);
-console.log('errors', errors.isEmpty())
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
@@ -41,7 +39,6 @@ console.log('errors', errors.isEmpty())
   }
   async activate(req, res, next) {
     try {
-      console.log('req', req.params)
       const activationCode = req.params.code;
       await userService.activate(activationCode);
       return res.status(201).json({ message: 'User is activated' });

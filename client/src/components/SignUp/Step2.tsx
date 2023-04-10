@@ -85,8 +85,6 @@ const Step2: React.FC<IProps> = ({ onClick }) => {
   const hasPhone = watch('hasPhone');
 
   const onSubmit = (values: IStep2) => {
-    console.log('values', values);
-    // history.push(ROUTE_RESULTS_PAGE);
     history.push(ROUTE_STEP_3_PAGE);
     reset(
       {

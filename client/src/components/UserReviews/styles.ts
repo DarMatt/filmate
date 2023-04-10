@@ -4,6 +4,7 @@ export const S: any = {};
 
 S.UserReviews = styled.div`
   width: 100%;
+  transition: all 0.3s ease 0s;
 `;
 
 S.CommentsTitle = styled.div`

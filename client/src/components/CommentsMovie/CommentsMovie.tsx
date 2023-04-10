@@ -15,14 +15,14 @@ const commentData = {
   spoiler: '',
 };
 
-type commentDataType = {
+type commentType = {
   rating: string;
   review: string;
   spoiler: string;
 };
 
 export const CommentsMovie: React.FC<any> = ({ movieDetails }) => {
-  const [comment, setComment] = useState<commentDataType>(commentData);
+  const [comment, setComment] = useState<commentType>(commentData);
   const { t } = useTranslation(['common']);
   const dispatch = useAppDispatch();
   const { userId } = getFromStorage(STORAGE_NAME);
@@ -35,7 +35,6 @@ export const CommentsMovie: React.FC<any> = ({ movieDetails }) => {
   };
 
   const onCommentSubmit = () => {
-    console.log('her');
     dispatch(
       movieAsyncActions.addComment({ ...comment, user_id: userId, movie_id: movieDetails.id })
     );
@@ -89,7 +88,7 @@ export const CommentsMovie: React.FC<any> = ({ movieDetails }) => {
         </S.SpoilersInner>
         <S.ButtonSubmitComment onClick={onCommentSubmit}>{t('submit')}</S.ButtonSubmitComment>
       </S.CommentsForm>
-      <UserReviews moveId={movieDetails.id} />
+      <UserReviews />
     </S.CommentsWrapper>
   );
 };

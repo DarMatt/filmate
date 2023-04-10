@@ -24,9 +24,11 @@ class MovieService {
   }
 
   async getComments(params) {
-    const comments = await (await CommentsSchema.find({"movie_id": params.movie_id})).reverse();
-
+    const comments = await CommentsSchema.find({"movie_id": params.movie_id});
     if (comments) {
+      comments.sort(function (a, b) {
+        return new Date(b.date) - new Date(a.date);
+      });
       return comments;
     }
   }

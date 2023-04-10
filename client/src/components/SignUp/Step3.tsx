@@ -41,14 +41,14 @@ const Step3: React.FC<IProps> = ({ onClick }) => {
   const onSubmit = (values: IStep3) => {
     console.log('values', values);
     history.push(ROUTE_RESULTS_PAGE);
-    for (let i = 0; i < values.files.length; i++) {
-      const reader = new FileReader();
-      const file = values.files[i];
-      reader.onload = () => {
-        dispatch(signup({ files: reader.result as string }));
-      };
-      reader.readAsDataURL(file);
-    }
+    // for (let i = 0; i < values.files.length; i++) {
+    //   const reader = new FileReader();
+    //   const file = values.files[i];
+    //   reader.onload = () => {
+    //     dispatch(signup({ files: reader.result as string }));
+    //   };
+    //   reader.readAsDataURL(file);
+    // }
 
     // dispatch(signup(values));
   };

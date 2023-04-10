@@ -67,7 +67,6 @@ const Result: React.FC<IProps> = ({ onClick }) => {
       history.push('/');
       dispatch(updateUserInfo(user));
       dispatch(login({ userId: user._id, token: accessToken }));
-      console.log('info.payload', info.payload);
       // await dispatch(authAsyncActions.loginAction({ email, password }));
     } else if (requestStatus === HTTP_REJECTED_STATUS) {
       Swal.fire('This user is already registered. Please go to Sign In');

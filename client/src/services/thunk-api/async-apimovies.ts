@@ -9,8 +9,11 @@ import {
   API_ENDPOINT_SET_TO_FAVORITE,
   API_ENDPOINT_SET_TO_WATCH_LATER,
 } from '../../CONST/api-endpoints';
+import { movieDispatchType, IApiMovies } from './actionTypes';
 import { MOVIE_TYPES_PREFIX } from '../../CONST/types-prefix-thunk/type-prefix-movie';
-import { setMovies, setComments, addToComments } from '../../redux-slices/movie-slice';
+import { IMovieCard } from '../../interfaces/movieCard';
+import { IMovies } from '../../interfaces/movieList';
+import { setMovies, setComments, addToComments, IReviewType } from '../../redux-slices/movie-slice';
 import { fetchMovies } from '../../utils/helpers';
 import { AxiosService } from '../api/axios.service';
 import { AsyncThunkService } from '../asyncThunk-service/asyncThunk-service';
@@ -18,10 +21,10 @@ import { AsyncThunkService } from '../asyncThunk-service/asyncThunk-service';
 const axiosService = new AxiosService();
 const asyncThunkService = new AsyncThunkService();
 
-export const asyncApiMovies = {
+export const asyncApiMovies: IApiMovies = {
   setMoviesAction: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.setMoviesAction,
-    async (_: void, { dispatch }: any) => {
+    async (_, { dispatch }: movieDispatchType) => {
       getPopular().then(async (resImdb) => {
         fetchMovies(dispatch, resImdb.results);
       });
@@ -29,7 +32,7 @@ export const asyncApiMovies = {
   ),
   setMoviesScrollAction: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.setMoviesScrollAction,
-    async (data: any, { dispatch }: any) => {
+    async (data, { dispatch }: movieDispatchType) => {
       getPopular(data.page).then(async (resImdb) => {
         fetchMovies(dispatch, [...data.movies, ...resImdb.results]);
       });
@@ -37,7 +40,7 @@ export const asyncApiMovies = {
   ),
   setMoviesGenre: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.setMoviesGenreAction,
-    async (genre: any, { dispatch }: any) => {
+    async (genre, { dispatch }: movieDispatchType) => {
       getMovieGenre(genre).then(async (resImdb) => {
         fetchMovies(dispatch, resImdb.results);
       });
@@ -45,7 +48,7 @@ export const asyncApiMovies = {
   ),
   setMoviesScrollGenre: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.setMoviesScrollGenreAction,
-    async (data: any, { dispatch }: any) => {
+    async (data, { dispatch }: movieDispatchType) => {
       getMovieGenre(data.genre, data.page).then(async (resImdb) => {
         fetchMovies(dispatch, [...data.movies, ...resImdb.results]);
       });
@@ -53,7 +56,7 @@ export const asyncApiMovies = {
   ),
   setSearchMovies: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.setSearchMovieAction,
-    async (query: any, { dispatch }: any) => {
+    async (query, { dispatch }: movieDispatchType) => {
       query
         ? getSearchMovies(query).then(async (resImdb) => {
             fetchMovies(dispatch, resImdb.results);
@@ -65,7 +68,7 @@ export const asyncApiMovies = {
   ),
   setSearchScrollMovies: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.setSearchScrollMovieAction,
-    async (data: any, { dispatch }: any) => {
+    async (data, { dispatch }: movieDispatchType) => {
       data.query
         ? getSearchMovies(data.query, data.page).then(async (resImdb) => {
             fetchMovies(dispatch, [...data.movies, ...resImdb.results]);
@@ -77,7 +80,7 @@ export const asyncApiMovies = {
   ),
   getFavoriteMovie: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.getFavoriteMovieAction,
-    async (data: any, { dispatch }: any) => {
+    async (_, { dispatch }: movieDispatchType) => {
       const resp = await axiosService.clientGet({
         url: API_ENDPOINT_GET_FAVORITE,
       });
@@ -86,31 +89,28 @@ export const asyncApiMovies = {
   ),
   addComment: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.addCommentAction,
-    async (data: any, { dispatch }: any) => {
-      console.log('before req');
+    async (data, { dispatch }: movieDispatchType) => {
       const resp = await axiosService.clientPost({
         url: API_ENDPOINT_ADD_COMMENT,
         body: data,
       });
       // return resp.data;
-      console.log('resp.data', resp.data);
       dispatch(addToComments(resp.data));
     }
   ),
   getComments: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.getCommentsAction,
-    async (data: any, { dispatch }: any) => {
+    async (data, { dispatch }: movieDispatchType) => {
       const resp = await axiosService.clientGet({
         url: API_ENDPOINT_GET_COMMENTS + data.id,
       });
-      console.log('resp.data', resp.data);
       // return resp.data;
       dispatch(setComments(resp.data));
     }
   ),
   addMovieToFavorite: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.addMovieToFavoriteAction,
-    async (data: any, { dispatch }: any) => {
+    async (data, _) => {
       await axiosService.clientPost({
         url: API_ENDPOINT_SET_TO_FAVORITE,
         body: data,
@@ -119,7 +119,7 @@ export const asyncApiMovies = {
   ),
   removeMovieFromFavorite: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.removeMovieFromFavoriteAction,
-    async (movie_id: any, { dispatch }: any) => {
+    async (movie_id, _) => {
       await axiosService.clientDelete({
         url: API_ENDPOINT_DELETE_FROM_FAVORITE + movie_id,
       });
@@ -127,7 +127,7 @@ export const asyncApiMovies = {
   ),
   getWatchLaterMovie: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.getWatchLaterMovieAction,
-    async (data: any, { dispatch }: any) => {
+    async (_, { dispatch }: movieDispatchType) => {
       const resp = await axiosService.clientGet({
         url: API_ENDPOINT_GET_WATCH_LATER,
       });
@@ -136,7 +136,7 @@ export const asyncApiMovies = {
   ),
   addMovieToWatchLater: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.addMovieToWatchLaterAction,
-    async (data: any, { dispatch }: any) => {
+    async (data, _) => {
       await axiosService.clientPost({
         url: API_ENDPOINT_SET_TO_WATCH_LATER,
         body: data,
@@ -145,7 +145,7 @@ export const asyncApiMovies = {
   ),
   removeMovieFromWatchLater: asyncThunkService.launchAsyncThunk(
     MOVIE_TYPES_PREFIX.removeMovieFromWatchLaterAction,
-    async (movie_id: any, { dispatch }: any) => {
+    async (movie_id, _) => {
       await axiosService.clientDelete({
         url: API_ENDPOINT_DELETE_FROM_WATCH_LATER + movie_id,
       });

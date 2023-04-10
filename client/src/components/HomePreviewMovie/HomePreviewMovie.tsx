@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { S } from './style';
+import { S } from './styles';
 import { AddToMenu } from '../AddToMenu/AddToMenu';
 import { UiSize } from '../../enums/UiSize';
 import { useAppSelector } from '../../hooks/redux';

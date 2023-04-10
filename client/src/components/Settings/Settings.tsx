@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useHistory } from 'react-router';
 import { FileUploader } from 'react-drag-drop-files';
 import { authAsyncActions, signOut } from '../../redux-slices/auth-slice';
@@ -21,6 +21,7 @@ export const Settings: React.FC<ISettingsProps> = ({ setOpenModal }) => {
   const { innerBorderRef } = useOnOutsideClick(setOpenModal);
   const dispatch = useAppDispatch();
   const userData = useAppSelector(getUserDataSelector);
+  const [file, setSelectFile] = useState('');
   const { t } = useTranslation(['common']);
   const logoutHandler = (event: React.FormEvent<EventTarget>): void => {
     event.preventDefault();
@@ -29,20 +30,21 @@ export const Settings: React.FC<ISettingsProps> = ({ setOpenModal }) => {
   };
   const { userId } = getFromStorage(STORAGE_NAME);
 
-  const onChangePhoto = async (event: ChangeEvent) => {
-    const target = event.target as HTMLInputElement;
-    const files = target.files as FileList;
-    console.log('inside onChangePhoto', files);
+  const onChangePhoto = async (img: ChangeEvent) => {
+    // const target = event.target as HTMLInputElement;
+    // const files = target.files as FileList;
+    // console.log('inside onChangePhoto', files);
 
-    for (let i = 0; i < files.length; i++) {
-      const reader = new FileReader();
-      const formatedFile = files[i];
-      reader.onload = () => {
-        console.log('inside onload', files);
-        dispatch(authAsyncActions.updateAction({ files: reader.result as string, id: userId }));
-      };
-      reader.readAsDataURL(formatedFile);
-    }
+    // for (let i = 0; i < files.length; i++) {
+    //   const reader = new FileReader();
+    //   const formatedFile = files[i];
+    //   reader.onload = () => {
+    //     console.log('inside onload', files);
+    //     dispatch(authAsyncActions.updateAction({ files: reader.result as string, id: userId }));
+    //   };
+    //   reader.readAsDataURL(formatedFile);
+    // }
+    setSelectFile(window.URL.createObjectURL(img[0]));
   };
 
   return (

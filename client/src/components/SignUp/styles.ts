@@ -143,3 +143,13 @@ export const LinkStyledStyled = styled(Link)({
   lineHeight: '21px',
   paddingTop: '20px',
 });
+
+export const ImgWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  & > .btn_crop_inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 30px;
+  }
+`;

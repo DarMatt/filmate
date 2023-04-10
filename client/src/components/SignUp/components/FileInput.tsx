@@ -1,10 +1,12 @@
 import { List, ListItem, ListItemIcon, ListItemText, makeStyles, Paper } from '@material-ui/core';
 import { CloudUpload, InsertDriveFile } from '@material-ui/icons';
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { Control, Controller } from 'react-hook-form';
+import { useAppDispatch } from '../../../hooks/redux';
+import { updateUserInfo } from '../../../redux-slices/auth-slice';
+import { ChanhePhoto } from '../../ChangePhoto/ChangePhoto';
 
-// eslint-disable-next-line no-unused-vars
 const useStyles = makeStyles((_theme) => ({
   root: {
     backgroundColor: '#eee',
@@ -31,16 +33,24 @@ export const FileInput: React.FC<IFileInputProps<any>> = ({
   name,
 }: PropsWithChildren<IFileInputProps<Record<string, any>>>): React.ReactElement => {
   const styles = useStyles();
+  const [file, setSelectFile] = useState('');
+  const dispatch = useAppDispatch();
+
+  const handleFileChange = (img, onChan) => {
+    setSelectFile(window.URL.createObjectURL(img[0]));
+    // maybe its not need
+    // onChan(img);
+  };
+
   return (
     <Controller
       control={control}
       name={name}
       defaultValue={[]}
       render={({ field: { onChange, onBlur, value, name } }) => {
-        console.log('value', value);
         return (
           <>
-            <Dropzone onDrop={onChange}>
+            <Dropzone onDrop={(e) => handleFileChange(e, onChange)}>
               {({ getRootProps, getInputProps }) => (
                 <Paper className={styles.root} variant="outlined" {...getRootProps()}>
                   <CloudUpload className={styles.icon} />
@@ -58,6 +68,12 @@ export const FileInput: React.FC<IFileInputProps<any>> = ({
                   <ListItemText primary={f.name} secondary={f.size} />
                 </ListItem>
               ))}
+              {file && (
+                <ChanhePhoto
+                  file={file}
+                  onHandleChange={(base64Image) => dispatch(updateUserInfo({ files: base64Image }))}
+                />
+              )}
             </List>
           </>
         );

@@ -33,7 +33,7 @@ export const MovieImages: React.FC<{ id: string }> = (id) => {
           .map((el) => getImgUrl(`original${el.file_path}`))
       );
     });
-  }, [id]);
+  }, []);
 
   const onPageIndex = (index: number) => {
     setPageIndex(index);
