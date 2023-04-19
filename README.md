@@ -1,7 +1,7 @@
 # Movie Web App
 
 ## Demo
-[Live DEMO](https://film-mate.herokuapp.com)
+[Live DEMO](https://filmate.herokuapp.com)
 
 ## The project was build using the following technologies:
 * Webpack
