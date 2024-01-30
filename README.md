@@ -37,6 +37,8 @@ I stopped paying for Heroku, so please run the project locally:
 * Load more movies on page scroll
 * Register
 * Responsive layout
+* Email verification
+* Photo editor
 
 
 It uses open [The Movie Database (TMDb) API] (https://www.themoviedb.org/documentation/api).
