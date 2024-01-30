@@ -7,6 +7,8 @@ import { useAppDispatch } from '../../hooks/redux';
 import { movieAsyncActions } from '../../redux-slices/movie-slice';
 import { getFromStorage } from '../../services/local-session-storage/service-localStorage';
 import { STORAGE_NAME } from '../../CONST/key-localStorage';
+import { useHistory } from 'react-router';
+import { ERoutes, ROUTE_LOGIN_PAGE } from '../../CONST/list-local-routes/routes';
 
 const ratingNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const commentData = {
@@ -26,6 +28,7 @@ export const CommentsMovie: React.FC<any> = ({ movieDetails }) => {
   const { t } = useTranslation(['common']);
   const dispatch = useAppDispatch();
   const { userId } = getFromStorage(STORAGE_NAME);
+  const history = useHistory();
   const createCommet = (event: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = event.target as HTMLInputElement;
     setComment((prevState) => ({
@@ -35,6 +38,10 @@ export const CommentsMovie: React.FC<any> = ({ movieDetails }) => {
   };
 
   const onCommentSubmit = () => {
+    if (!userId) {
+      history.push(history.location.pathname + ROUTE_LOGIN_PAGE);
+      return;
+    }
     dispatch(
       movieAsyncActions.addComment({ ...comment, user_id: userId, movie_id: movieDetails.id })
     );
