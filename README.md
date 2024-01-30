@@ -2,6 +2,7 @@
 
 ## Demo
 [Live DEMO](https://filmate.herokuapp.com)
+
 I stopped paying for Heroku, so please run the project locally:
  * Clone the project
  * 'npm i' from root and client folder
